@@ -1,6 +1,6 @@
 import React from 'react'
 
-function NBack() {
+function CorsiBlock() {
     return (
         <div>
             
@@ -8,4 +8,4 @@ function NBack() {
     )
 }
 
-export default NBack
+export default CorsiBlock

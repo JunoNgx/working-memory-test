@@ -2,13 +2,13 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { AnimatedRoute, AnimatedSwitch } from 'react-router-transition';
 
-import Agreement from './components/Agreement';
-import Menu from './components/Menu';
-import NBack from './components/NBack';
-import MemoryUpdating from './components/MemoryUpdating';
-import CorsiBlock from './components/CorsiBlock';
-import Results from './components/Results';
-import About from './components/About';
+import Agreement from './pages/Agreement';
+import Menu from './pages/Menu';
+import NBack from './pages/NBack';
+import MemoryUpdating from './pages/MemoryUpdating';
+import CorsiBlock from './pages/CorsiBlock';
+import Results from './pages/Results';
+import About from './pages/About';
 
 import './styles/styles.scss';
 import { TestProgressProvider } from './contexts/TestProgress';
