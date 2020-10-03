@@ -1,0 +1,116 @@
+// @import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap';
+
+$pri-color: #eee;
+$bac-color: #444;
+$acc-color: steelblue;
+
+$std-border-width: 2px;
+$transition-time: 400ms;
+
+@mixin std-border {
+    border: $std-border-width $pri-color solid;
+}
+@mixin col-border($col) {
+    border: $std-border-width $col solid;
+}
+
+body {
+    // margin: 0;
+    color: $pri-color;
+    background-color: $bac-color;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.App {
+    @include std-border();
+    margin: auto;
+    max-width: 640px;
+}
+
+button {
+    font-family: consolas;
+    font-size: 1.2rem;
+
+    @include std-border();
+
+    color: $pri-color;
+    background-color: $bac-color;
+    cursor: pointer;
+
+    transition: color $transition-time, background-color $transition-time;
+    &:hover {
+        color: $bac-color;
+        background-color: $pri-color;
+    }
+    
+    // a {
+    //     text-decoration: none;
+    //     color: $pri-color;
+    //     background-color: $bac-color;
+    //     transition: color $transition-time, background-color $transition-time;
+        
+        
+    //     &:visited {
+    //         color: $pri-color;
+    //     }
+    // }
+}
+
+
+.button {
+    &--agreement {
+        padding: 0.5rem 1rem ;
+    }
+    &--menu {
+        @include col-border($acc-color);
+        color: $acc-color;
+        padding: 1rem;
+        margin: 1rem;
+
+        &:hover{
+            color: $pri-color;
+            background-color: $acc-color;
+        }
+        // width: 100%;
+        &--test {
+            // width: 100%;
+            // width: 50%;
+            width: 100%;
+        }
+        &--other {
+            width: 100%;
+        }
+    }
+}
+
+@mixin flex-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu {
+    @include flex-menu();
+    margin: 2rem;
+    &__tests {
+        // @include std-border();
+        @include flex-menu();
+        margin: 2rem 0.5rem;
+    }
+    &__others {
+        @include flex-menu();
+    }
+    // button {
+    //     padding:
+    //     margin: 2rem;
+    // }
+}

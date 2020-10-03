@@ -1,24 +1,45 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import 'fontsource-roboto';
+
+import Agreement from './components/Agreement';
+import Menu from './components/Menu';
+import NBack from './components/NBack';
+import MemoryUpdating from './components/MemoryUpdating';
+import CorsiBlock from './components/CorsiBlock';
+import Results from './components/Results';
+import About from './components/About';
+
+import './styles/styles.scss';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <Router>
+            <Switch>
+                <Route exact path="/">
+                    <Agreement/>
+                </Route>
+                <Route exact path="/menu">
+                    <Menu/>
+                </Route>
+                <Route exact path="/nback">
+                    <NBack/>
+                </Route>
+                <Route exact path="/memory-updating">
+                    <MemoryUpdating/>
+                </Route>
+                <Route exact path="/corsi-block">
+                    <CorsiBlock/>
+                </Route>
+                <Route exact path="/results">
+                    <Results/>
+                </Route>
+                <Route exact path="/about">
+                    <About/>
+                </Route>
+            </Switch>
+        </Router>
     </div>
   );
 }
