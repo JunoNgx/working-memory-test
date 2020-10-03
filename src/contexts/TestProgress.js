@@ -5,8 +5,8 @@ const TestProgressContext = React.createContext();
 function TestProgressProvider({children}) {
 
     const [nbackResults, setNbackResults] = useState([]);
-    const [memoryUpdatingResults, setMemoryUpdatingResults] = useState([]);
-    const [corsiBlockResults, setCorsiBlockResults] = useState([]);
+    const [memoryUpdatingResults, setMemoryUpdatingResults] = useState([2, 2, 3, 4, 5]);
+    const [corsiBlockResults, setCorsiBlockResults] = useState([3, 2, 3, 4, 5]);
 
     function addNbackResult(_score) {
         let newResults = [...nbackResults]

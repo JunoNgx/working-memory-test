@@ -40,6 +40,9 @@ body {
 
 html {
     font-size: 18px;
+    p {
+        line-height: 1.5;
+    }
     a {
         color: $pri-color;
     }
@@ -48,7 +51,7 @@ html {
         font-family: $font-mono;
         font-size: 1.2rem;
     
-        // @include -border();
+        @include std-border();
         cursor: pointer;
     
         color: $pri-color;
@@ -149,7 +152,7 @@ html {
     &__tests {
         // @include std-border();
         @include flex-menu();
-        margin: 2rem 0;
+        margin: 1rem 0;
     }
     &__others {
         @include flex-menu();
@@ -175,14 +178,25 @@ html {
             // font-size: 1rem;
             font-weight: bolder;
         }
-        &__results {
+        &__results {    
             font-family: $font-mono;
             font-size: 1.5rem;
             margin: 0;
         }
+        // &__test-data {
+        //     display: flex;
+        //     justify-content: space-between;
+        //     align-items: center;
+            
+
+        //     &__result-count {
+        //         margin: 0;
+        //     }
+        // }
     }
     &__send-request {
         color: $acc-color;
+        margin-top: 3rem;
     }
 }
 
@@ -190,9 +204,10 @@ html {
     &__current-nums {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
+        justify-content: space-around;
         &__num {
             @include std-border();
+            border-radius: 50%;
             font-family: $font-mono;
             margin: 1rem;
             width: 2.5rem;

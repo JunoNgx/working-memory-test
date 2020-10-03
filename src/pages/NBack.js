@@ -11,7 +11,7 @@ function NBack() {
     const [answerNum, setAnswerNum] = useState()
 
     function addNewNumber() {
-
+        setCurrentNums([...currentNums, Math.floor(Math.random()*9)])
     }
 
     return (
@@ -24,6 +24,8 @@ function NBack() {
                     </p>)
                 }
             </div>
+
+            <button onClick={addNewNumber}>addNum</button>
         </div>
     )
 }
