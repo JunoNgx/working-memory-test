@@ -250,7 +250,7 @@ html {
     &__current-nums {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-around;
+        justify-content: flex-start;
         &__num {
             // @include std-border();
             // border-radius: 50%;

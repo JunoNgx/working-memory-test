@@ -32,29 +32,54 @@ function NBack() {
 
     useEffect(()=>{
         // 4 numbers are present in the array
+        if (currentNums.length > 2) setIsWaitingForAnswer(true)
         if (isWaitingForAnswer) generateNewQuestion()
         if (!isWaitingForAnswer) addNewNumber()
-        if (currentNums.length > 2) setIsWaitingForAnswer(true)
-    }, [currentNums])
+    }, [currentNums, isWaitingForAnswer])
 
     useEffect(()=>{
-        if (isWaitingForAnswer && answerNum) {
-            if (answerNum === currentNums[currentNums.length-questionNum]) {
+        console.log('answer changed')
+        console.log(answerNum === 0)
+        console.log(isWaitingForAnswer && (answerNum || answerNum === 0))
+        if (isWaitingForAnswer && (answerNum || answerNum === 0)) {
+            // TODO technical debt, to clean up and refactor this line
+            // 0 equates to false, explicitness is essential here
+            if (answerNum === undefined) return
+            if (parseInt(answerNum) === currentNums[currentNums.length-questionNum-1]) {
+                console.log("correct")
                 setScore(score => score + 1)
                 setAnswerNum()
+                setQuestionNum()
                 setIsWaitingForAnswer(false)
+                // addNewNumber()
             } else {
-                testProgress.addNbackResult(score)
                 setIsTestOver(true)
             }
         }
     }, [answerNum])
 
+    useEffect(()=>{
+        if (!questionNum && !answerNum) {
+            addNewNumber()
+        }
+    }, [questionNum, answerNum])
+
+    useEffect(()=>{
+        if (score === 5) {
+            setIsTestOver(true)
+        }
+    }, [score])
+
+    useEffect(()=>{
+        if (isTestOver) testProgress.addNbackResult(score)
+    }, [isTestOver])
+
     function addNewNumber() {
         // if (!isWaitingForAnswer) {
             // setCurrentNums([...currentNums, randIncl(9)])
             setTimeout(()=>{
-                setCurrentNums([...currentNums, randIncl(9)])
+                // setCurrentNums([...currentNums, randIncl(9)])
+                setCurrentNums([...currentNums, 0])
             }, 1000)
         // }
     }
@@ -64,6 +89,10 @@ function NBack() {
     }
 
     function submitAnswer(value) {
+        // console.log(currentNums.length)
+        // console.log(questionNum)
+        // console.log(currentNums[currentNums.length-questionNum])
+        console.log(value)
         setAnswerNum(value)
     }
 
