@@ -26,6 +26,38 @@ body {
 
 html {
     font-size: 18px;
+    a {
+        color: $pri-color;
+    }
+
+    button {
+        font-family: Roboto Mono, monospace;
+        font-size: 1.2rem;
+    
+        @include std-border();
+    
+        color: $pri-color;
+        background-color: $bac-color;
+        cursor: pointer;
+    
+        transition: color $transition-time, background-color $transition-time;
+        &:hover {
+            color: $bac-color;
+            background-color: $pri-color;
+        }
+        
+        // a {
+        //     text-decoration: none;
+        //     color: $pri-color;
+        //     background-color: $bac-color;
+        //     transition: color $transition-time, background-color $transition-time;
+            
+            
+        //     &:visited {
+        //         color: $pri-color;
+        //     }
+        // }
+    }
 }
 
 // Class wrapper for route switch transitions
@@ -47,38 +79,11 @@ html {
     max-width: 640px;
 }
 
-button {
-    font-family: Roboto Mono, monospace;
-    font-size: 1.2rem;
 
-    @include std-border();
-
-    color: $pri-color;
-    background-color: $bac-color;
-    cursor: pointer;
-
-    transition: color $transition-time, background-color $transition-time;
-    &:hover {
-        color: $bac-color;
-        background-color: $pri-color;
-    }
-    
-    // a {
-    //     text-decoration: none;
-    //     color: $pri-color;
-    //     background-color: $bac-color;
-    //     transition: color $transition-time, background-color $transition-time;
-        
-        
-    //     &:visited {
-    //         color: $pri-color;
-    //     }
-    // }
-}
 
 
 .button {
-    &--agreement {
+    &--back {
         padding: 0.5rem 1rem ;
         margin-top: 2rem;
     }
