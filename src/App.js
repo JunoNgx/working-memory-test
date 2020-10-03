@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import 'fontsource-roboto';
+import { AnimatedRoute, AnimatedSwitch } from 'react-router-transition';
 
 import Agreement from './components/Agreement';
 import Menu from './components/Menu';
@@ -16,7 +16,20 @@ function App() {
   return (
     <div className="App">
         <Router>
-            <Switch>
+            {/* <Switch> */}
+            <AnimatedSwitch
+                atEnter={{translateX: -640, opacity: 0}}
+                atLeave={{translateX: 640, opacity: 0}}
+                atActive={{translateX: 0, opacity: 1}}
+                // atEnter={{ opacity: 0 }}
+                // atLeave={{ opacity: 0 }}
+                // atActive={{ opacity: 1 }}
+                className="switch-wrapper"
+                mapStyles={styles => ({
+                    transform: `translateX(${styles.translateX}px)`,
+                    opacity: styles.opacity
+                })}
+            >
                 <Route exact path="/">
                     <Agreement/>
                 </Route>
@@ -38,7 +51,8 @@ function App() {
                 <Route exact path="/about">
                     <About/>
                 </Route>
-            </Switch>
+            </AnimatedSwitch>
+            {/* </Switch> */}
         </Router>
     </div>
   );
