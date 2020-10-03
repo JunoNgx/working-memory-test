@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { useHistory } from 'react-router-dom'
+// import { useHistory } from 'react-router-dom'
 import { TestProgressContext } from '../contexts/TestProgress'
 
 import ToMenuButton from '../components/BackButton'
@@ -7,7 +7,12 @@ import ToMenuButton from '../components/BackButton'
 function Results() {
 
     const testProgress = useContext(TestProgressContext)
-    const history = useHistory()
+    // const history = useHistory()
+
+    function resetData() {
+        testProgress.resetAll()
+        console.log('All data has been erased')
+    }
 
     return (
         <div className="results">
@@ -68,6 +73,8 @@ function Results() {
             
 
             <ToMenuButton label={"Back"}/>
+            <p className="results__warning">WARNING: pressing the below button will erase all of your testing progress. Please be certain of your action.</p>
+            <button className="button--reset" onClick={resetData}>Reset</button>
         </div>
     )
 }

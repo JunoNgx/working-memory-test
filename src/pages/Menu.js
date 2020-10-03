@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { TestProgressContext } from '../contexts/TestProgress'
@@ -7,6 +7,10 @@ function Menu() {
 
     const history = useHistory();
     const testProgress = useContext(TestProgressContext)
+
+    useEffect(() => {
+        testProgress.retrieveFromLocalStorage()
+    }, [])
 
     return (
         <div className="menu">
@@ -34,6 +38,7 @@ function Menu() {
                 <button className="button--menu button--menu--other" onClick={()=>{history.push("/results")}}>View results</button>
                 <button className="button--menu button--menu--other" onClick={()=>{history.push("/about")}}>About</button>
             </div>
+            <button onClick={()=>{localStorage.setItem('nbackResults', JSON.stringify(testProgress.nbackResults))}}>Yo</button>
         </div>
     )
 }

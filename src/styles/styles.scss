@@ -138,8 +138,10 @@ html {
             width: 100%;
         }
     }
-    &--start {
-
+    &--reset {
+        @include colored-button($war-color, $pri-color);
+        @include nav-button();
+        margin-top: 0rem;
     }
 }
 
@@ -234,6 +236,10 @@ html {
     &__send-request {
         color: $acc-color;
         margin-top: 3rem;
+    }
+    &__warning {
+        color: $war-color;
+        margin-top: 5rem;
     }
 }
 

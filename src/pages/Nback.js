@@ -20,8 +20,7 @@ function NBack() {
     const [currentNums, setCurrentNums] = useState([])
     const [questionNum, setQuestionNum] = useState()
     const [answerNum, setAnswerNum] = useState()
-
-    const [score, setScore] = useState()
+    const [score, setScore] = useState(0)
 
     const testProgress = useContext(TestProgressContext)
 
