@@ -1,6 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { AnimatedRoute, AnimatedSwitch } from 'react-router-transition';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { AnimatedSwitch } from 'react-router-transition';
 
 import Agreement from './pages/Agreement';
 import Menu from './pages/Menu';
@@ -18,14 +18,10 @@ function App() {
     <div className="App">
         <TestProgressProvider>
             <Router>
-                {/* <Switch> */}
                 <AnimatedSwitch
                     atEnter={{translateX: 640, opacity: 0}}
                     atLeave={{translateX: -640, opacity: 0}}
                     atActive={{translateX: 0, opacity: 1}}
-                    // atEnter={{ opacity: 0 }}
-                    // atLeave={{ opacity: 0 }}
-                    // atActive={{ opacity: 1 }}
                     className="switch-wrapper"
                     mapStyles={styles => ({
                         transform: `translateX(${styles.translateX}px)`,
@@ -54,7 +50,6 @@ function App() {
                         <About/>
                     </Route>
                 </AnimatedSwitch>
-                {/* </Switch> */}
             </Router>
         </TestProgressProvider>
     </div>

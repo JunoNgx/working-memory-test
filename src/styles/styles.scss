@@ -185,3 +185,21 @@ html {
         color: $acc-color;
     }
 }
+
+.nback {
+    &__current-nums {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        &__num {
+            @include std-border();
+            font-family: $font-mono;
+            margin: 1rem;
+            width: 2.5rem;
+            // height: 3rem;
+            text-align: center;
+            font-size: 2rem;
+            // background-color: red;
+        }
+    }
+}
