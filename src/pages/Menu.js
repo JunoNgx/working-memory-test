@@ -10,6 +10,7 @@ function Menu() {
 
     return (
         <div className="menu">
+            <p className="menu__app-title">Working memory testing tool</p>
             <div className="menu__tests">
                 <button className="button--menu button--menu--test" onClick={()=>{history.push("/nback")}}>
                     N-Back test

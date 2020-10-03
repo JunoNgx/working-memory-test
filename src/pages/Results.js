@@ -2,6 +2,8 @@ import React, { useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { TestProgressContext } from '../contexts/TestProgress'
 
+import ToMenuButton from '../components/BackButton'
+
 function Results() {
 
     const testProgress = useContext(TestProgressContext)
@@ -65,7 +67,7 @@ function Results() {
             }
             
 
-            <button className="button--back" onClick={()=>{history.push("/menu")}}>Back</button>
+            <ToMenuButton label={"Back"}/>
         </div>
     )
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+import BackButton from '../components/BackButton'
 
 function Agreement() {
     const history = useHistory();
@@ -10,7 +11,8 @@ function Agreement() {
             <p>For data accuracy and validity of the research, please refrain from using assistive method or device, such as recording and/or taking notes, during the course of the tests.</p>
             <p>By clicking the button below, you accept to use the app with our terms and relinquish us of any legal obligation.</p>
 
-            <button className="button--back" onClick={()=>{history.push("/menu")}}>I accept</button>
+            <BackButton label={"I accept"}/>
+            
         </div>
     )
 }

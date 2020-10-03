@@ -1,5 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+import BackButton from '../components/BackButton'
 
 function About() {
 
@@ -12,7 +13,7 @@ function About() {
             <p><a href="https://github.com/JunoNgx/working-memory-test" rel="noopener noreferrer" target="_blank">https://github.com/JunoNgx/working-memory-test</a></p>
             <p>For any question or issue, please contact Juno via appropriate channels.</p>
 
-            <button className="button--back" onClick={()=>{history.push("/menu")}}>Back</button>
+            <BackButton label={"Back"}/>
         </div>
     )
 }
