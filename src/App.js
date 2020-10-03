@@ -18,8 +18,8 @@ function App() {
         <Router>
             {/* <Switch> */}
             <AnimatedSwitch
-                atEnter={{translateX: -640, opacity: 0}}
-                atLeave={{translateX: 640, opacity: 0}}
+                atEnter={{translateX: 640, opacity: 0}}
+                atLeave={{translateX: -640, opacity: 0}}
                 atActive={{translateX: 0, opacity: 1}}
                 // atEnter={{ opacity: 0 }}
                 // atLeave={{ opacity: 0 }}
