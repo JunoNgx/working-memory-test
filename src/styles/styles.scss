@@ -80,6 +80,7 @@ html {
    
 .switch-wrapper > div {
     position: absolute;
+    width: 100%;
 }
 
 // code {
@@ -90,6 +91,7 @@ html {
     // @include std-border();
     margin: auto;
     max-width: 640px;
+    padding: 0 0.5rem;
 }
 
 
@@ -139,11 +141,15 @@ html {
 
 .menu {
     @include flex-menu();
-    margin: 2rem;
+    // @include std-border();
+    // margin: 2rem;
+    // margin: auto;
+    // padding: 1rem;
+    // width: 640px; 
     &__tests {
         // @include std-border();
         @include flex-menu();
-        margin: 2rem 0.5rem;
+        margin: 2rem 0;
     }
     &__others {
         @include flex-menu();
