@@ -30,43 +30,86 @@ function NBack() {
     //     addNewNumber()
     // }, [isWaitingForAnswer])
 
-    useEffect(()=>{
-        // 4 numbers are present in the array
-        if (currentNums.length > 2) setIsWaitingForAnswer(true)
-        if (isWaitingForAnswer) generateNewQuestion()
-        if (!isWaitingForAnswer) addNewNumber()
-    }, [currentNums, isWaitingForAnswer])
+    // useEffect(()=>{
+    //     if (isWaitingForAnswer) {
+    //         generateNewQuestion()
+    //     } else {
+    //         if (currentNums.length >= 3 && answerNum === undefined) setIsWaitingForAnswer(true)
+    //         addNewNumber()
+    //     }        
+    //     // if (!isWaitingForAnswer) 
+    // }, [currentNums, isWaitingForAnswer])
+
+    // useEffect(()=>{
+    //     console.log('answer changed')
+    //     console.log(answerNum === 0)
+    //     console.log(isWaitingForAnswer && (answerNum || answerNum === 0))
+    //     if (isWaitingForAnswer && (answerNum !== undefined)) {
+    //         // TODO technical debt, to clean up and refactor this line
+    //         // 0 equates to false, explicitness is essential here
+    //         // if (answerNum === undefined) return
+    //         if (answerNum === currentNums[currentNums.length-questionNum-1]) {
+    //             console.log("correct")
+    //             setScore(score => score + 1)
+    //             setAnswerNum()
+    //             setQuestionNum()
+    //             setIsWaitingForAnswer(false)
+    //             // addNewNumber()
+    //         } else {
+    //             setIsTestOver(true)
+    //         }
+    //     }
+    // }, [answerNum])
+
+    // useEffect(()=>{
+    //     if (!questionNum && !answerNum) {
+    //         addNewNumber()
+    //     }
+    // }, [questionNum, answerNum])
 
     useEffect(()=>{
-        console.log('answer changed')
-        console.log(answerNum === 0)
-        console.log(isWaitingForAnswer && (answerNum || answerNum === 0))
-        if (isWaitingForAnswer && (answerNum || answerNum === 0)) {
-            // TODO technical debt, to clean up and refactor this line
-            // 0 equates to false, explicitness is essential here
-            if (answerNum === undefined) return
-            if (parseInt(answerNum) === currentNums[currentNums.length-questionNum-1]) {
-                console.log("correct")
-                setScore(score => score + 1)
-                setAnswerNum()
-                setQuestionNum()
-                setIsWaitingForAnswer(false)
-                // addNewNumber()
-            } else {
-                setIsTestOver(true)
-            }
+        if (currentNums.length <= 3) {
+            addNewNumber()
+        } else {
+            generateNewQuestion()
+        }    
+    }, [currentNums])
+
+    useEffect(()=>{
+        // console.log(answerNum)
+        // console.log(answerNum !== undefined
+        //     && answerNum === currentNums[currentNums.length-questionNum-1])
+
+        // TODO technical debt, to clean up and refactor this line
+        // if (answerNum !== undefined
+        //     && answerNum === currentNums[currentNums.length-questionNum-1]) {
+
+            
+
+        //     setScore(score => score + 1)
+        //     setAnswerNum(undefined)
+        //     setQuestionNum(undefined)
+        //     addNewNumber()
+        // } else if (currentNums.length > 0) {
+        //     setIsTestOver(true)
+        // }
+
+        if (answerNum === undefined) return
+        console.log(answerNum === currentNums[currentNums.length-questionNum-1])
+        if (answerNum === currentNums[currentNums.length-questionNum-1]) {
+            setScore(score => score + 1)
+            setAnswerNum(undefined)
+            setQuestionNum(undefined)
+            addNewNumber()
+        } else {
+            setIsTestOver(true)
         }
     }, [answerNum])
 
     useEffect(()=>{
-        if (!questionNum && !answerNum) {
-            addNewNumber()
-        }
-    }, [questionNum, answerNum])
-
-    useEffect(()=>{
         if (score === 5) {
             setIsTestOver(true)
+            // testProgress.addNbackResult(score)
         }
     }, [score])
 
@@ -74,18 +117,27 @@ function NBack() {
         if (isTestOver) testProgress.addNbackResult(score)
     }, [isTestOver])
 
+    function generateNewQuestion() {
+
+        setTimeout(() => {
+            if (questionNum === undefined) {
+                setQuestionNum(1 + randIncl(3))
+                console.log(isWaitingForAnswer)
+                console.log('generated new question')
+                
+            }
+        }, 1500)
+       
+   }
+
     function addNewNumber() {
         // if (!isWaitingForAnswer) {
             // setCurrentNums([...currentNums, randIncl(9)])
             setTimeout(()=>{
                 // setCurrentNums([...currentNums, randIncl(9)])
                 setCurrentNums([...currentNums, 0])
-            }, 1000)
+            }, 1200)
         // }
-    }
-
-    function generateNewQuestion() {
-        setQuestionNum(1 + randIncl(3))
     }
 
     function submitAnswer(value) {
@@ -127,7 +179,7 @@ function NBack() {
 
             {/* <button onClick={addNewNumber}>addNum</button> */}
 
-            {(isWaitingForAnswer && questionNum) && <div className="nback__qa">
+            {(questionNum) && <div className="nback__qa">
                 <div className="nback__qa__question">
                     <p>{`What is the ${ordinalStr} last digit?`}</p>
                 </div>
