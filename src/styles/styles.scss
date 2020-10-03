@@ -206,15 +206,37 @@ html {
         flex-wrap: wrap;
         justify-content: space-around;
         &__num {
-            @include std-border();
-            border-radius: 50%;
+            // @include std-border();
+            // border-radius: 50%;
             font-family: $font-mono;
-            margin: 1rem;
+            margin: 0.75rem;
             width: 2.5rem;
+            // height: 2.5rem;
             // height: 3rem;
             text-align: center;
             font-size: 2rem;
             // background-color: red;
+            &--hidden {
+                background-color: $pri-color;
+            }
+        }
+    }
+    &__qa {
+        &__question {
+            margin: 2rem;
+            font-size: 1.5rem;
+        }
+        &__answers {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            &__answer {
+                padding: 0.25rem 1rem;
+                font-family: $font-mono;
+                font-size: 2rem;
+                margin: 0.75rem;
+            }
+            
         }
     }
 }
