@@ -38,7 +38,7 @@ function Menu() {
                 <button className="button--menu button--menu--other" onClick={()=>{history.push("/results")}}>View results</button>
                 <button className="button--menu button--menu--other" onClick={()=>{history.push("/about")}}>About</button>
             </div>
-            <button onClick={()=>{localStorage.setItem('nbackResults', JSON.stringify(testProgress.nbackResults))}}>Yo</button>
+            {/* <button onClick={()=>{localStorage.setItem('nbackResults', JSON.stringify(testProgress.nbackResults))}}>Yo</button> */}
         </div>
     )
 }

@@ -10,8 +10,10 @@ function Results() {
     // const history = useHistory()
 
     function resetData() {
-        testProgress.resetAll()
-        console.log('All data has been erased')
+        if (window.confirm('Are you sure you want to reset your data? Please be certain that this is what you want as your data will not be recoverable afterwards.')) {
+            testProgress.resetAll()
+            console.log('All data has been erased')
+        }
     }
 
     return (
@@ -73,7 +75,7 @@ function Results() {
             
 
             <ToMenuButton label={"Back"}/>
-            <p className="results__warning">WARNING: pressing the below button will erase all of your testing progress. Please be certain of your action.</p>
+            <p className="results__warning">WARNING: pressing the below button will erase all of your testing progress. This will not be recoverable.</p>
             <button className="button--reset" onClick={resetData}>Reset</button>
         </div>
     )
