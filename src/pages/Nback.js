@@ -134,8 +134,8 @@ function NBack() {
         // if (!isWaitingForAnswer) {
             // setCurrentNums([...currentNums, randIncl(9)])
             setTimeout(()=>{
-                // setCurrentNums([...currentNums, randIncl(9)])
-                setCurrentNums([...currentNums, 0])
+                setCurrentNums([...currentNums, randIncl(9)])
+                // setCurrentNums([...currentNums, 0])
             }, 1200)
         // }
     }
