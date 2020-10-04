@@ -7,7 +7,7 @@ function ToMenuButton({path}) {
 
     return (
         <div>
-            <button className="button--start" onClick={()=>{history.push(path)}}>Start</button>
+            <button className="button--start" onClick={()=>{history.push(path)}}>Ready to start</button>
         </div>
     )
 }

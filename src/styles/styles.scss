@@ -288,3 +288,61 @@ html {
         }
     }
 }
+
+.corsiblock {
+    &__blocks {
+        @include std-border();
+        margin: auto;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(7, 1fr);
+        grid-gap: 0.5rem;
+        justify-items: center;
+
+        &__container {
+            // border: 1px red solid;
+            // padding: 1rem;
+            width: 3rem;
+            height: 3rem;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+
+            &__block {
+                // @include std-border();
+                // margin: auto;
+                // align-self: right;
+                width: 2.5rem;
+                height: 2.5rem;
+                background-color: #777;
+
+                transition:
+                    width $transition-time, 
+                    height $transition-time,
+                    background-color $transition-time;
+
+                &--clickable {
+                    cursor: pointer;
+                    &:hover {
+                        background-color: #999;
+                    }
+                }
+                &--highlighted {
+                    background-color: $acc-color;
+                    width: 3rem;
+                    height: 3rem;
+                }
+                // &--clicked {
+                //     background-color: $acc-color;
+                //     width: 3rem;
+                //     height: 3rem;
+                // }
+            }
+
+        }
+
+
+    }
+}

@@ -17,7 +17,7 @@ function NBackTest() {
     // const [hasStarted, setHasStarted] = useState(false)
     const [isTestOver, setIsTestOver] = useState(false)
     // const [isFailed, setIsFailed] = useState(false)
-    const [isWaitingForAnswer, setIsWaitingForAnswer] = useState(false)
+    // const [isWaitingForAnswer, setIsWaitingForAnswer] = useState(false)
     const [currentNums, setCurrentNums] = useState([])
     const [questionNum, setQuestionNum] = useState()
     const [answerNum, setAnswerNum] = useState()
@@ -128,8 +128,8 @@ function NBackTest() {
         setTimeout(() => {
             if (questionNum === undefined) {
                 setQuestionNum(1 + randIncl(3))
-                console.log(isWaitingForAnswer)
-                console.log('generated new question')
+                // console.log(isWaitingForAnswer)
+                // console.log('generated new question')
                 
             }
         }, 1500)
