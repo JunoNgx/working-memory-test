@@ -18,7 +18,7 @@ function NBackTest() {
     const [isTestOver, setIsTestOver] = useState(false)
     // const [isFailed, setIsFailed] = useState(false)
     // const [isWaitingForAnswer, setIsWaitingForAnswer] = useState(false)
-    const [currentNums, setCurrentNums] = useState([])
+    const [currentData, setCurrentData] = useState([])
     const [question, setQuestion] = useState()
     const [answer, setAnswer] = useState()
     const [score, setScore] = useState(0)
@@ -37,11 +37,11 @@ function NBackTest() {
     //     if (isWaitingForAnswer) {
     //         generateNewQuestion()
     //     } else {
-    //         if (currentNums.length >= 3 && answer === undefined) setIsWaitingForAnswer(true)
+    //         if (currentData.length >= 3 && answer === undefined) setIsWaitingForAnswer(true)
     //         addNewNumber()
     //     }        
     //     // if (!isWaitingForAnswer) 
-    // }, [currentNums, isWaitingForAnswer])
+    // }, [currentData, isWaitingForAnswer])
 
     // useEffect(()=>{
     //     console.log('answer changed')
@@ -51,7 +51,7 @@ function NBackTest() {
     //         // TODO technical debt, to clean up and refactor this line
     //         // 0 equates to false, explicitness is essential here
     //         // if (answer === undefined) return
-    //         if (answer === currentNums[currentNums.length-question-1]) {
+    //         if (answer === currentData[currentData.length-question-1]) {
     //             console.log("correct")
     //             setScore(score => score + 1)
     //             setAnswer()
@@ -71,21 +71,21 @@ function NBackTest() {
     // }, [question, answer])
 
     useEffect(()=>{
-        if (currentNums.length <= 3) {
+        if (currentData.length <= 3) {
             addNewNumber()
         } else {
             generateNewQuestion()
         }    
-    }, [currentNums])
+    }, [currentData])
 
     useEffect(()=>{
         // console.log(answer)
         // console.log(answer !== undefined
-        //     && answer === currentNums[currentNums.length-question-1])
+        //     && answer === currentData[currentData.length-question-1])
 
         // TODO technical debt, to clean up and refactor this line
         // if (answer !== undefined
-        //     && answer === currentNums[currentNums.length-question-1]) {
+        //     && answer === currentData[currentData.length-question-1]) {
 
             
 
@@ -93,13 +93,13 @@ function NBackTest() {
         //     setAnswer(undefined)
         //     setQuestion(undefined)
         //     addNewNumber()
-        // } else if (currentNums.length > 0) {
+        // } else if (currentData.length > 0) {
         //     setIsTestOver(true)
         // }
 
         if (answer === undefined) return
-        console.log(answer === currentNums[currentNums.length-question-1])
-        if (answer === currentNums[currentNums.length-question-1]) {
+        console.log(answer === currentData[currentData.length-question-1])
+        if (answer === currentData[currentData.length-question-1]) {
             setScore(score => score + 1)
             setAnswer(undefined)
             setQuestion(undefined)
@@ -138,18 +138,18 @@ function NBackTest() {
 
     function addNewNumber() {
         // if (!isWaitingForAnswer) {
-            // setCurrentNums([...currentNums, randIncl(9)])
+            // setCurrentData([...currentData, randIncl(9)])
             setTimeout(()=>{
-                setCurrentNums([...currentNums, randIncl(9)])
-                // setCurrentNums([...currentNums, 0])
+                setCurrentData([...currentData, randIncl(9)])
+                // setCurrentData([...currentData, 0])
             }, 1200)
         // }
     }
 
     function submitAnswer(value) {
-        // console.log(currentNums.length)
+        // console.log(currentData.length)
         // console.log(question)
-        // console.log(currentNums[currentNums.length-question])
+        // console.log(currentData[currentData.length-question])
         console.log(value)
         setAnswer(value)
     }
@@ -170,13 +170,13 @@ function NBackTest() {
         <div className="nback">
             {/* dotenv only store string, hence an explicit comparison to the string 'true' is necessary*/}
             {(process.env.REACT_APP_DEBUG_MODE === 'true')
-                && <>Debug data: {currentNums.map((num, index) => <span key={index}>{num} </span>) }; {question}</>
+                && <>Debug data: {currentData.map((num, index) => <span key={index}>{num} </span>) }; {question}</>
             }
             <p className="nback__attention">Pay attention to these numbers:</p>
-            <div className="nback__current-nums">
-                {currentNums.map((num, index) => 
-                    <Number key={index} value={num} isHidden={index<currentNums.length-1}/> 
-                    // <span key={index} className="nback__current-nums__num">
+            <div className="nback__current-data">
+                {currentData.map((num, index) => 
+                    <Number key={index} value={num} isHidden={index<currentData.length-1}/> 
+                    // <span key={index} className="nback__current-data__num">
                     //     {num}
                     // </span>)
                 )}
@@ -218,8 +218,8 @@ export default NBackTest
 
 function Number({value, isHidden}) {
 
-    let numberClass = "nback__current-nums__num"
-    if (isHidden) numberClass += " nback__current-nums__num--hidden"
+    let numberClass = "nback__current-data__num"
+    if (isHidden) numberClass += " nback__current-data__num--hidden"
 
     return (
         <span className={numberClass}>
