@@ -27,6 +27,12 @@ function App() {
 
     // const testProgress = useContext(TestProgressContext)
 
+    useEffect(() => {
+        if (process.env.REACT_APP_DEBUG_MODE === 'true') {
+            document.title = "Working Memory Testing Tool - DEBUG MODE"
+        }
+    }, [])
+
     return (
         <div className="App">
             <TestProgressProvider>
