@@ -19,8 +19,8 @@ function NBackTest() {
     // const [isFailed, setIsFailed] = useState(false)
     // const [isWaitingForAnswer, setIsWaitingForAnswer] = useState(false)
     const [currentNums, setCurrentNums] = useState([])
-    const [questionNum, setQuestionNum] = useState()
-    const [answerNum, setAnswerNum] = useState()
+    const [question, setQuestion] = useState()
+    const [answer, setAnswer] = useState()
     const [score, setScore] = useState(0)
 
     const testProgress = useContext(TestProgressContext)
@@ -37,7 +37,7 @@ function NBackTest() {
     //     if (isWaitingForAnswer) {
     //         generateNewQuestion()
     //     } else {
-    //         if (currentNums.length >= 3 && answerNum === undefined) setIsWaitingForAnswer(true)
+    //         if (currentNums.length >= 3 && answer === undefined) setIsWaitingForAnswer(true)
     //         addNewNumber()
     //     }        
     //     // if (!isWaitingForAnswer) 
@@ -45,30 +45,30 @@ function NBackTest() {
 
     // useEffect(()=>{
     //     console.log('answer changed')
-    //     console.log(answerNum === 0)
-    //     console.log(isWaitingForAnswer && (answerNum || answerNum === 0))
-    //     if (isWaitingForAnswer && (answerNum !== undefined)) {
+    //     console.log(answer === 0)
+    //     console.log(isWaitingForAnswer && (answer || answer === 0))
+    //     if (isWaitingForAnswer && (answer !== undefined)) {
     //         // TODO technical debt, to clean up and refactor this line
     //         // 0 equates to false, explicitness is essential here
-    //         // if (answerNum === undefined) return
-    //         if (answerNum === currentNums[currentNums.length-questionNum-1]) {
+    //         // if (answer === undefined) return
+    //         if (answer === currentNums[currentNums.length-question-1]) {
     //             console.log("correct")
     //             setScore(score => score + 1)
-    //             setAnswerNum()
-    //             setQuestionNum()
+    //             setAnswer()
+    //             setQuestion()
     //             setIsWaitingForAnswer(false)
     //             // addNewNumber()
     //         } else {
     //             setIsTestOver(true)
     //         }
     //     }
-    // }, [answerNum])
+    // }, [answer])
 
     // useEffect(()=>{
-    //     if (!questionNum && !answerNum) {
+    //     if (!question && !answer) {
     //         addNewNumber()
     //     }
-    // }, [questionNum, answerNum])
+    // }, [question, answer])
 
     useEffect(()=>{
         if (currentNums.length <= 3) {
@@ -79,35 +79,35 @@ function NBackTest() {
     }, [currentNums])
 
     useEffect(()=>{
-        // console.log(answerNum)
-        // console.log(answerNum !== undefined
-        //     && answerNum === currentNums[currentNums.length-questionNum-1])
+        // console.log(answer)
+        // console.log(answer !== undefined
+        //     && answer === currentNums[currentNums.length-question-1])
 
         // TODO technical debt, to clean up and refactor this line
-        // if (answerNum !== undefined
-        //     && answerNum === currentNums[currentNums.length-questionNum-1]) {
+        // if (answer !== undefined
+        //     && answer === currentNums[currentNums.length-question-1]) {
 
             
 
         //     setScore(score => score + 1)
-        //     setAnswerNum(undefined)
-        //     setQuestionNum(undefined)
+        //     setAnswer(undefined)
+        //     setQuestion(undefined)
         //     addNewNumber()
         // } else if (currentNums.length > 0) {
         //     setIsTestOver(true)
         // }
 
-        if (answerNum === undefined) return
-        console.log(answerNum === currentNums[currentNums.length-questionNum-1])
-        if (answerNum === currentNums[currentNums.length-questionNum-1]) {
+        if (answer === undefined) return
+        console.log(answer === currentNums[currentNums.length-question-1])
+        if (answer === currentNums[currentNums.length-question-1]) {
             setScore(score => score + 1)
-            setAnswerNum(undefined)
-            setQuestionNum(undefined)
+            setAnswer(undefined)
+            setQuestion(undefined)
             addNewNumber()
         } else {
             setIsTestOver(true)
         }
-    }, [answerNum])
+    }, [answer])
 
     useEffect(()=>{
         if (score === 5) {
@@ -126,8 +126,8 @@ function NBackTest() {
     function generateNewQuestion() {
 
         setTimeout(() => {
-            if (questionNum === undefined) {
-                setQuestionNum(1 + randIncl(3))
+            if (question === undefined) {
+                setQuestion(1 + randIncl(3))
                 // console.log(isWaitingForAnswer)
                 // console.log('generated new question')
                 
@@ -148,21 +148,21 @@ function NBackTest() {
 
     function submitAnswer(value) {
         // console.log(currentNums.length)
-        // console.log(questionNum)
-        // console.log(currentNums[currentNums.length-questionNum])
+        // console.log(question)
+        // console.log(currentNums[currentNums.length-question])
         console.log(value)
-        setAnswerNum(value)
+        setAnswer(value)
     }
 
     // Rendering //
 
     // Formatting ordinal numbers
     let ordinalStr = ''
-    if (questionNum === 1) {
+    if (question === 1) {
         ordinalStr = 'second'
-    } else if (questionNum === 2) {
+    } else if (question === 2) {
         ordinalStr = 'third'
-    } else if (questionNum === 3) {
+    } else if (question === 3) {
         ordinalStr = 'fourth'
     }
     
@@ -170,7 +170,7 @@ function NBackTest() {
         <div className="nback">
             {/* dotenv only store string, hence an explicit comparison to the string 'true' is necessary*/}
             {(process.env.REACT_APP_DEBUG_MODE === 'true')
-                && <>Debug data: {currentNums.map((num, index) => <span key={index}>{num} </span>) }; {questionNum}</>
+                && <>Debug data: {currentNums.map((num, index) => <span key={index}>{num} </span>) }; {question}</>
             }
             <p className="nback__attention">Pay attention to these numbers:</p>
             <div className="nback__current-nums">
@@ -184,7 +184,7 @@ function NBackTest() {
 
             {/* <button onClick={addNewNumber}>addNum</button> */}
 
-            {(questionNum) && <div className="nback__qa">
+            {(question) && <div className="nback__qa">
                 <div className="nback__qa__question">
                     <p>{`What is the ${ordinalStr} last digit?`}</p>
                 </div>
