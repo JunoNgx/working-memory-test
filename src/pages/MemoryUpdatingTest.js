@@ -32,7 +32,7 @@ function MemoryUpdatingTest() {
     const history = useHistory()
 
     useEffect(()=>{
-        console.log(currentData)
+        if (process.env.REACT_APP_DEBUG_MODE === 'true') console.log(currentData)
 
         if (currentData.length <= 3) {
             addNewNumber()
@@ -114,11 +114,17 @@ function MemoryUpdatingTest() {
 
     function addNewNumber() {
             setTimeout(()=>{
+                let blacklist = [...currentDataRef.current]
+                if (replData.current) blacklist.push(replData.current[0])
+
                 setCurrentData(
                     [...currentDataRef.current,
-                    randWithBlacklist(ALPHA.length, currentData)]
-                    // randWithBlacklist(7, currentData)]
+                    randWithBlacklist(
+                        ALPHA.length,
+                        blacklist
+                    )]
                 )
+
             }, 1200)
         // }
     }
