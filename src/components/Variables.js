@@ -1,5 +1,5 @@
 const STRINGS = {
-    DATA_COLLECTION_NOTICE: "This application was used as a data collection tool for a research project as part of the study programme under Murdoch University Singapore in Q4 2020. Data are self-contained within the partipant's browser and handed over explicitly from the participant to the research team via screenshots or other forms of communications.",
+    DATA_COLLECTION_NOTICE: "This application was used as a data collection tool for a research project as part of the study programme under Murdoch University Singapore in Q4 2020. Data are self-contained within the partipant's browser, stored locally via localStorage, and only handed over explicitly from the participant to the research team via screenshots or other forms of clear communications.",
     LEGAL_NOTICE: "By clicking the button below, you accept to use the app with our terms and relinquish us of any legal obligation.",
     BROWSER_NOTICE: "Avoid using the back button on your device or refreshing the browser to prevent data loss.",
     VALIDITY_NOTICE: "For data accuracy and validity of the research, please refrain from using assistive method or device, such as recording and/or taking notes, during the course of the tests.",
