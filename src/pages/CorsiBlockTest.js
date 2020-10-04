@@ -14,7 +14,7 @@ const INSTRUCTION_REPEAT = "Now repeat the pattern you saw by tapping the block 
 function CorsiBlockTest() {
 
     const [isTestOver, setIsTestOver] = useState(false)
-    const [isWaitingForAnswer, setIsWaitingForAnswer] = useState()
+    const [isWaitingForAnswer, setIsWaitingForAnswer] = useState(false)
     const [blockMap, setBlockMap] = useState(getInitialBlockMap())
     const [question, setQuestion] = useState([])
     const [answer, setAnswer] = useState([])
@@ -29,8 +29,13 @@ function CorsiBlockTest() {
         // Only run when there has been active changes to the answer
         if (answer.length <= 0) return
 
+        // console.log(answer[answer.length-1])
+        // console.log(question[answer.length-1])
+
         // Check if the latest answer is correct
-        if (answer[answer.length-1] !== question[answer.length-1]) {
+        if (answer[answer.length-1] === question[answer.length-1]) {
+
+            console.log('Correct block')
 
             // The answer for this question has been completed
             if (answer.length === question.length) {
@@ -42,6 +47,7 @@ function CorsiBlockTest() {
             }
 
         } else {
+            console.log('Wrong block')
             setIsTestOver(true)
         }
 
@@ -51,6 +57,7 @@ function CorsiBlockTest() {
         // Startup trigger, will run only once at first
         if (question.length < getQuesLen()) generateNewQuestion()
 
+        // Making sure that this is ran on a new and properly populated question set
         if (!isWaitingForAnswer && question.length > 0) {
 
             // Initiate a small delay to orientate the user before a new question is set
@@ -220,7 +227,9 @@ function Block({index, isHighlighted, handleClick}) {
         <div
             className={classNames}
             onClick={()=>{handleClick(index)}}
-        ></div>
+        >
+            {(process.env.REACT_APP_DEBUG_MODE) && <>{index}</>}
+        </div>
     )
 }
 
