@@ -14,7 +14,7 @@ const INSTRUCTION_REPEAT = "Now repeat the pattern you saw by tapping the block 
 function CorsiBlockTest() {
 
     const [isTestOver, setIsTestOver] = useState(false)
-    const [isWaitingForAnswer, setIsWaitingForAnswer] = useState(false)
+    const [isWaitingForAnswer, setIsWaitingForAnswer] = useState()
     const [blockMap, setBlockMap] = useState(getInitialBlockMap())
     const [question, setQuestion] = useState([])
     const [answer, setAnswer] = useState([])
@@ -48,9 +48,10 @@ function CorsiBlockTest() {
     }, [answer])
 
     useEffect(()=>{
-        // Startup trigger
+        // Startup trigger, will run only once at first
         if (question.length < getQuesLen()) generateNewQuestion()
-        if (!isWaitingForAnswer) {
+
+        if (!isWaitingForAnswer && question.length > 0) {
 
             // Initiate a small delay to orientate the user before a new question is set
             setTimeout(() => {
@@ -61,10 +62,12 @@ function CorsiBlockTest() {
                         highlightBlockState(ques)
                     }, index * TIME_INTERVAL)
                 })
+
+                // Reset and get the participant ready for the answer
                 setTimeout(() => {
-                    setBlockMap(getInitialBlockMap())
                     setIsWaitingForAnswer(true)
-                }, (question.length+1) * TIME_INTERVAL)
+                    setBlockMap(getInitialBlockMap())
+                }, (question.length + 1) * TIME_INTERVAL)
 
             }, STARTUP_DELAY)
 
