@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react'
+import { useHistory } from 'react-router-dom';
 
 import { TestProgressContext } from '../contexts/TestProgress' 
 import EndNotice from '../components/EndNotice';
@@ -23,6 +24,8 @@ function NBackTest() {
     const [score, setScore] = useState(0)
 
     const testProgress = useContext(TestProgressContext)
+
+    const history = useHistory()
 
     // console.log(process.env.REACT_APP_DEBUG_MODE)
 
@@ -114,7 +117,10 @@ function NBackTest() {
     }, [score])
 
     useEffect(()=>{
-        if (isTestOver) testProgress.addNbackResult(score)
+        if (isTestOver) {
+            testProgress.addNbackResult(score)
+            history.push("/test-over")
+        }
     }, [isTestOver])
 
     function generateNewQuestion() {
@@ -159,9 +165,8 @@ function NBackTest() {
     } else if (questionNum === 3) {
         ordinalStr = 'fourth'
     }
-
-    // The "playfield" when the test is going on
-    const playfield = (
+    
+    return (
         <div className="nback">
             {/* dotenv only store string, hence an explicit comparison to the string 'true' is necessary*/}
             {(process.env.REACT_APP_DEBUG_MODE === 'true')
@@ -192,20 +197,6 @@ function NBackTest() {
                 </div>
             </div>}
         </div>
-    )
-
-    // Notice when the test is over
-    const endNotice = (
-        <EndNotice/>
-    )
-
-    return (
-        <>
-            {(isTestOver)
-                ? <>{endNotice}</>
-                : <>{playfield}</>
-            }
-        </>
     )
 }
 

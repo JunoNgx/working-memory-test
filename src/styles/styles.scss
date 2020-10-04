@@ -142,6 +142,7 @@ html {
         @include colored-button($war-color, $pri-color);
         @include nav-button();
         margin-top: 0rem;
+        margin-bottom: 2rem;
     }
 }
 

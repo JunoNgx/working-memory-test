@@ -4,12 +4,15 @@ import { AnimatedSwitch } from 'react-router-transition';
 
 import Agreement from './pages/Agreement';
 import Menu from './pages/Menu';
+
 // import NbackExplanation from './pages/NbackExplanation';
 import NbackTest from './pages/NbackTest';
 // import MemoryUpdatingExplanation from './pages/MemoryUpdatingExplanation';
 import MemoryUpdatingTest from './pages/MemoryUpdatingTest';
 // import CorsiBlockExplanation from './pages/CorsiBlockExplanation';
 import CorsiBlockTest from './pages/CorsiBlockTest';
+
+import TestOver from './pages/TestOver'
 import Results from './pages/Results';
 import About from './pages/About';
 
@@ -80,6 +83,10 @@ function App() {
                         </Route>
                         <Route exact path="/corsi-block/start">
                             <CorsiBlockTest/>
+                        </Route>
+
+                        <Route exact path="/test-over">
+                            <TestOver/>
                         </Route>
 
                         {/* Other menu options */}
