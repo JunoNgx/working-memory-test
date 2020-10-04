@@ -3,6 +3,7 @@ import React, { useContext } from 'react'
 import { TestProgressContext } from '../contexts/TestProgress'
 
 import ToMenuButton from '../components/BackButton'
+import { STRINGS } from '../components/Variables'
 
 function Results() {
 
@@ -10,7 +11,7 @@ function Results() {
     // const history = useHistory()
 
     function resetData() {
-        if (window.confirm('Are you sure you want to reset your data? Please be certain that this is what you want as your data will not be recoverable afterwards.')) {
+        if (window.confirm(STRINGS.RESET_CONFIRMATION)) {
             testProgress.resetAll()
             console.log('All data has been erased')
         }
@@ -70,12 +71,12 @@ function Results() {
                     && (testProgress.corsiBlockResults.length === 5)
                 )
                 
-                && <p className="results__send-request">You have completed your tests. Please take a screenshot of this page and send to your point of contact in the research team. Your co-operation is much appreciated.</p>
+                && <p className="results__send-request">{STRINGS.SEND_DATA_NOTICE}</p>
             }
             
 
             <ToMenuButton label={"Back"}/>
-            <p className="results__warning">WARNING: pressing the below button will erase all of your testing progress. This will not be recoverable.</p>
+            <p className="results__warning">{STRINGS.RESET_WARNING}</p>
             <button className="button--reset" onClick={resetData}>Reset</button>
         </div>
     )

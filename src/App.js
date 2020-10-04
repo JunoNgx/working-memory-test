@@ -4,19 +4,25 @@ import { AnimatedSwitch } from 'react-router-transition';
 
 import Agreement from './pages/Agreement';
 import Menu from './pages/Menu';
-import NbackExplanation from './pages/NbackExplanation';
+// import NbackExplanation from './pages/NbackExplanation';
 import NbackTest from './pages/NbackTest';
-import MemoryUpdatingExplanation from './pages/MemoryUpdatingExplanation';
+// import MemoryUpdatingExplanation from './pages/MemoryUpdatingExplanation';
 import MemoryUpdatingTest from './pages/MemoryUpdatingTest';
-import CorsiBlock from './pages/CorsiBlock';
+// import CorsiBlockExplanation from './pages/CorsiBlockExplanation';
+import CorsiBlockTest from './pages/CorsiBlockTest';
 import Results from './pages/Results';
 import About from './pages/About';
 
+import { STRINGS } from './components/Variables';
+import ExplanationPage from './components/ExplanationPage';
+
 import './styles/styles.scss';
 
-import { TestProgressProvider } from './contexts/TestProgress';
+import { TestProgressContext, TestProgressProvider } from './contexts/TestProgress';
 
 function App() {
+
+    // const testProgress = useContext(TestProgressContext)
 
     return (
         <div className="App">
@@ -38,21 +44,45 @@ function App() {
                         <Route exact path="/menu">
                             <Menu/>
                         </Route>
+
+                        {/* Explanation pages */}
                         <Route exact path="/nback">
-                            <NbackExplanation/>
-                        </Route>
-                        <Route exact path="/nback/start">
-                            <NbackTest/>
+                            {/* <NbackExplanation/> */}
+                            <ExplanationPage
+                                instructionStr = {STRINGS.NBACK_EXPLANATION}
+                                testPath = "/nback/start"
+                                // testCount = {testProgress.nbackResults.length}
+                            />
                         </Route>
                         <Route exact path="/memory-updating">
-                            <MemoryUpdatingExplanation/>
+                            <ExplanationPage
+                                instructionStr = {STRINGS.MEMORY_UPDATING_EXPLANATION}
+                                testPath = "/memory-updating/start"
+                                // testCount = {testProgress.nbackResults.length}
+                            />
+                            {/* <MemoryUpdatingExplanation/> */}
+                        </Route>
+                        <Route exact path="/corsi-block">
+                            <ExplanationPage
+                                instructionStr = {STRINGS.CORSI_BLOCK_EXPLANATION}
+                                testPath = "/corsi-block/start"
+                                // testCount = {testProgress.nbackResults.length}
+                            />
+                            {/* <CorsiBlockExplanation/> */}
+                        </Route>
+
+                        {/* The test pages */}
+                        <Route exact path="/nback/start">
+                            <NbackTest/>
                         </Route>
                         <Route exact path="/memory-updating/start">
                             <MemoryUpdatingTest/>
                         </Route>
                         <Route exact path="/corsi-block/start">
-                            <CorsiBlock/>
+                            <CorsiBlockTest/>
                         </Route>
+
+                        {/* Other menu options */}
                         <Route exact path="/results">
                             <Results/>
                         </Route>

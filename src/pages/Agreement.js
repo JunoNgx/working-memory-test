@@ -2,17 +2,18 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import BackButton from '../components/BackButton'
 
+import { STRINGS } from '../components/Variables'
+
 function Agreement() {
     const history = useHistory();
 
     return (
         <div className="agreement">
-            <p>This application was used as a data collection tool for a research project as part of the study programme under Murdoch University Singapore in Q4 2020. Data are self-contained within the partipant's browser and handed over explicitly from the participant to the research team via screenshots or other forms of communications.</p>
-            <p>For data accuracy and validity of the research, please refrain from using assistive method or device, such as recording and/or taking notes, during the course of the tests.</p>
-            <p>By clicking the button below, you accept to use the app with our terms and relinquish us of any legal obligation.</p>
-
+            <p>{STRINGS.DATA_COLLECTION_NOTICE}</p>
+            <p>{STRINGS.VALIDITY_NOTICE}</p>
+            <p>{STRINGS.BROWSER_NOTICE}</p>
+            <p>{STRINGS.LEGAL_NOTICE}</p>
             <BackButton label={"I accept"}/>
-            
         </div>
     )
 }

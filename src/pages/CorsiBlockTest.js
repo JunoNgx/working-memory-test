@@ -1,6 +1,6 @@
 import React from 'react'
 
-function CorsiBlock() {
+function CorsiBlockTest() {
     return (
         <div>
             
@@ -8,4 +8,4 @@ function CorsiBlock() {
     )
 }
 
-export default CorsiBlock
+export default CorsiBlockTest
