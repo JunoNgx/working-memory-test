@@ -228,7 +228,7 @@ function Block({index, isHighlighted, handleClick}) {
             className={classNames}
             onClick={()=>{handleClick(index)}}
         >
-            {(process.env.REACT_APP_DEBUG_MODE) && <>{index}</>}
+            {(process.env.REACT_APP_DEBUG_MODE === 'true') && <>{index}</>}
         </div>
     )
 }
