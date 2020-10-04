@@ -95,10 +95,10 @@ function MemoryUpdatingTest() {
     }
 
     function performReplacement() {
-        // let source = randWithBlacklist(ALPHA.length, [currentData[currentData.length-1]]);
-        // let replacement = randWithBlacklist(ALPHA.length, [source, currentData[currentData.length-1]]);
-        let source = randWithBlacklist(7, [currentData[currentData.length-1]]);
-        let replacement = randWithBlacklist(7, [source, currentData[currentData.length-1]]);
+        let source = randWithBlacklist(ALPHA.length, [currentData[currentData.length-1]]);
+        let replacement = randWithBlacklist(ALPHA.length, [source, currentData[currentData.length-1]]);
+        // let source = randWithBlacklist(7, [currentData[currentData.length-1]]);
+        // let replacement = randWithBlacklist(7, [source, currentData[currentData.length-1]]);
 
         replData.current = [source, replacement]
         isReadyForNewQuestion.current = false
@@ -116,8 +116,8 @@ function MemoryUpdatingTest() {
             setTimeout(()=>{
                 setCurrentData(
                     [...currentDataRef.current,
-                    // randWithBlacklist(ALPHA.length, currentData)]
-                    randWithBlacklist(7, currentData)]
+                    randWithBlacklist(ALPHA.length, currentData)]
+                    // randWithBlacklist(7, currentData)]
                 )
             }, 1200)
         // }
