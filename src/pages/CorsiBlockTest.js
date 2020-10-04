@@ -67,7 +67,7 @@ function CorsiBlockTest() {
                 setTimeout(() => {
                     setIsWaitingForAnswer(true)
                     setBlockMap(getInitialBlockMap())
-                }, (question.length + 1) * TIME_INTERVAL)
+                }, (question.length) * TIME_INTERVAL)
 
             }, STARTUP_DELAY)
 
