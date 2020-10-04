@@ -4,8 +4,9 @@ import { AnimatedSwitch } from 'react-router-transition';
 
 import Agreement from './pages/Agreement';
 import Menu from './pages/Menu';
-import Nback from './pages/Nback';
-import NbackExplain from './pages/NbackExplain';
+import NbackExplanation from './pages/NbackExplanation';
+import NbackTest from './pages/NbackTest';
+import MemoryUpdatingExplanation from './pages/MemoryUpdatingExplanation';
 import MemoryUpdating from './pages/MemoryUpdating';
 import CorsiBlock from './pages/CorsiBlock';
 import Results from './pages/Results';
@@ -38,14 +39,17 @@ function App() {
                             <Menu/>
                         </Route>
                         <Route exact path="/nback">
-                            <NbackExplain/>
+                            <NbackExplanation/>
                         </Route>
                         <Route exact path="/nback/start">
-                            <Nback/>
+                            <NbackTest/>
                         </Route>
-                        <Route exact path="/memory-updating/start">
+                        <Route exact path="/memory-updating">
+                            <MemoryUpdatingExplanation/>
+                        </Route>
+                        {/* <Route exact path="/memory-updating/start">
                             <MemoryUpdating/>
-                        </Route>
+                        </Route> */}
                         <Route exact path="/corsi-block/start">
                             <CorsiBlock/>
                         </Route>

@@ -11,7 +11,7 @@ const QUESTION_STR = [
 
 const MAX_ARRAY_LENGTH = 9;
 
-function NBack() {
+function NBackTest() {
     
     // const [hasStarted, setHasStarted] = useState(false)
     const [isTestOver, setIsTestOver] = useState(false)
@@ -209,7 +209,7 @@ function NBack() {
     )
 }
 
-export default NBack
+export default NBackTest
 
 function Number({value, isHidden}) {
 
