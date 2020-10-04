@@ -7,7 +7,7 @@ import Menu from './pages/Menu';
 import NbackExplanation from './pages/NbackExplanation';
 import NbackTest from './pages/NbackTest';
 import MemoryUpdatingExplanation from './pages/MemoryUpdatingExplanation';
-import MemoryUpdating from './pages/MemoryUpdating';
+import MemoryUpdatingTest from './pages/MemoryUpdatingTest';
 import CorsiBlock from './pages/CorsiBlock';
 import Results from './pages/Results';
 import About from './pages/About';
@@ -47,9 +47,9 @@ function App() {
                         <Route exact path="/memory-updating">
                             <MemoryUpdatingExplanation/>
                         </Route>
-                        {/* <Route exact path="/memory-updating/start">
-                            <MemoryUpdating/>
-                        </Route> */}
+                        <Route exact path="/memory-updating/start">
+                            <MemoryUpdatingTest/>
+                        </Route>
                         <Route exact path="/corsi-block/start">
                             <CorsiBlock/>
                         </Route>
