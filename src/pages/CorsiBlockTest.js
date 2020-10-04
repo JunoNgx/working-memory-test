@@ -1,12 +1,12 @@
 import React, { useEffect, useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 
-import { randIncl } from '../utilities/Random'
+import { randIncl, randNUniqueNumsWithinRange } from '../utilities/Random'
 
 import { TestProgressContext } from '../contexts/TestProgress' 
 
 const TIME_INTERVAL = 1000
-const INSTRUCTION_OBSERVE = "Observe the pattern"
+const INSTRUCTION_OBSERVE = "Observe the pattern closely"
 const INSTRUCTION_REPEAT = "Now repeat the pattern you saw by tapping the block in the correct sequence"
 
 function CorsiBlockTest() {
@@ -22,22 +22,50 @@ function CorsiBlockTest() {
 
     const history = useHistory()
 
+    useEffect(()=>{
+        generateNewQuestion()
+    }, [answer])
+
+    useEffect(()=>{
+        // Startup trigger
+        if (question.length < getQuesLen()) generateNewQuestion()
+        // setIsWaitingForAnswer(false)
+    }, [question])
+
+    function getQuesLen() {
+        return score + 4
+    }
 
     function getInitialBlockMap() {
         let array = []
         for (let i = 0; i < 35; i++) {
             array.push(false)
-            // if (i % 2 === 0) {
-            //     array.push(false)
-            // } else {
-            //     array.push(true)
-            // }
         }
         return array
     }
 
     function generateNewQuestion() {
+        setQuestion(randNUniqueNumsWithinRange(getQuesLen(), 35))
 
+
+        // console.log('question generating')
+        // console.log(question.length)
+        // console.log(getQuesLen())
+        
+        // // do {
+        // //     // let num = randIncl(blockMap.length)
+        // //     // console.log(num)
+        // //     // let newArr = [...question]
+        // //     //     newArr.push(num)
+        // //     //     setQuestion(newArr)
+
+        // //     // if (!question.includes(num)) {
+        // //     //     console.log('not indlucded')
+        // //     //     let newArr = [...question]
+        // //     //     newArr.push(num)
+        // //     //     setQuestion(newArr)
+        // //     // }
+        // // } while (question.length < getQuesLen())
     }
 
     function changeBlockState(index) {
@@ -67,8 +95,11 @@ function CorsiBlockTest() {
         <div className="corsiblock">
 
             <div className="corsiblock__instruction">
-                <p className="corsiblock__content">
-
+                <p className="corsiblock__instruction__content">
+                    {(isWaitingForAnswer)
+                        ? <>{INSTRUCTION_REPEAT}</>
+                        : <>{INSTRUCTION_OBSERVE}</>
+                    }
                 </p>
             </div>
 

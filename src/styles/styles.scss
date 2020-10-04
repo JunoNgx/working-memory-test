@@ -290,13 +290,21 @@ html {
 }
 
 .corsiblock {
+    &__instruction {
+        height: 5.5rem;
+        &__content {
+            text-align: center;
+            font-size: 1.2rem;
+        }
+    }
     &__blocks {
-        @include std-border();
+        // @include std-border();
         margin: auto;
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
         grid-template-rows: repeat(7, 1fr);
-        grid-gap: 0.5rem;
+        grid-template-columns: repeat(5, 1fr);
+        grid-row-gap: 0.5rem;
+        grid-column-gap: 0.2rem;
         justify-items: center;
 
         &__container {
@@ -318,6 +326,8 @@ html {
                 height: 2.5rem;
                 background-color: #777;
 
+                box-shadow: 7px 7px #222;
+
                 transition:
                     width $transition-time, 
                     height $transition-time,
@@ -325,9 +335,9 @@ html {
 
                 &--clickable {
                     cursor: pointer;
-                    &:hover {
-                        background-color: #999;
-                    }
+                    // &:hover {
+                    //     background-color: #999;
+                    // }
                 }
                 &--highlighted {
                     background-color: $acc-color;
