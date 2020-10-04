@@ -12,7 +12,13 @@ const ALPHA = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", 
 function MemoryUpdatingTest() {
     
     const [isTestOver, setIsTestOver] = useState(false)
+
     const [currentData, setCurrentData] = useState([])
+
+    // To mitigate setting state in timeout
+    const currentDataRef = useRef(currentData)
+    currentDataRef.current = currentData
+
     const [question, setQuestion] = useState()
     const [answer, setAnswer] = useState()
     const [score, setScore] = useState(0)
@@ -26,6 +32,8 @@ function MemoryUpdatingTest() {
     const history = useHistory()
 
     useEffect(()=>{
+        console.log(currentData)
+
         if (currentData.length <= 3) {
             addNewNumber()
         } else {
@@ -49,7 +57,7 @@ function MemoryUpdatingTest() {
 
             // A slight delay to prevent performReplacement from triggering
             // another question generation
-            // Has to be shorter than the next timeout to generateNewQuestion()
+            // Has to be shorter than the next timeout to generateNewQuestion)
             setTimeout(()=>{isReadyForNewQuestion.current = true}, 100)
         } else {
             setIsTestOver(true)
@@ -73,21 +81,24 @@ function MemoryUpdatingTest() {
 
         setTimeout(() => {
             if (question === undefined) {
-                console.log("New question generated")
                 setQuestion(
                     randWithBlacklist(
                         ALPHA.length,
                         [currentData[currentData.length-1]]
                     )
                 )
+    
+                console.log(`New question generated`)
             }
         }, 1500)
        
     }
 
     function performReplacement() {
-        let source = randWithBlacklist(ALPHA.length, [currentData[currentData.length-1]]);
-        let replacement = randWithBlacklist(ALPHA.length, [source, currentData[currentData.length-1]]);
+        // let source = randWithBlacklist(ALPHA.length, [currentData[currentData.length-1]]);
+        // let replacement = randWithBlacklist(ALPHA.length, [source, currentData[currentData.length-1]]);
+        let source = randWithBlacklist(7, [currentData[currentData.length-1]]);
+        let replacement = randWithBlacklist(7, [source, currentData[currentData.length-1]]);
 
         replData.current = [source, replacement]
         isReadyForNewQuestion.current = false
@@ -98,14 +109,15 @@ function MemoryUpdatingTest() {
         })
         setCurrentData(newArr)
 
-        console.log('Chars replaced')
+        console.log(`Chars replaced: ${ALPHA[source]} to ${ALPHA[replacement]} (${source} to ${replacement})`)
     }
 
     function addNewNumber() {
             setTimeout(()=>{
                 setCurrentData(
-                    [...currentData,
-                    randWithBlacklist(ALPHA.length, currentData)]
+                    [...currentDataRef.current,
+                    // randWithBlacklist(ALPHA.length, currentData)]
+                    randWithBlacklist(7, currentData)]
                 )
             }, 1200)
         // }
