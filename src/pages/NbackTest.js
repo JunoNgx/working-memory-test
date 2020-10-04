@@ -98,9 +98,8 @@ function NBackTest() {
         // }
 
         if (answer === undefined) return
-        // console.log(answer === currentData[currentData.length-question-1])
-        // TODO factorise this grosteque line
-        if (answer === currentData[currentData.length-question-1]) {
+        const questionedNumber = currentData[currentData.length-question-1]
+        if (answer === questionedNumber) {
             setScore(score => score + 1)
             setAnswer(undefined)
             setQuestion(undefined)
