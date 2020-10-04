@@ -275,10 +275,15 @@ html {
             font-size: 1.5rem;
         }
         &__answers {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
+            // border: 1px solid teal;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            justify-items: center;
+            // justify-content: space-around;
+            // flex-wrap: wrap;
             &__answer {
+                width: 5rem;
                 padding: 0.25rem 1rem;
                 font-family: $font-mono;
                 font-size: 2rem;
@@ -291,7 +296,7 @@ html {
 
 .corsiblock {
     &__instruction {
-        height: 5.5rem;
+        height: 6rem;
         &__content {
             text-align: center;
             font-size: 1.2rem;

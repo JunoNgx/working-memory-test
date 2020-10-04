@@ -6,6 +6,8 @@ import { randIncl, randNUniqueNumsWithinRange } from '../utilities/Random'
 import { TestProgressContext } from '../contexts/TestProgress' 
 
 const TIME_INTERVAL = 1000
+const STARTUP_DELAY = 2000
+
 const INSTRUCTION_OBSERVE = "Observe the pattern closely"
 const INSTRUCTION_REPEAT = "Now repeat the pattern you saw by tapping the block in the correct sequence"
 
@@ -23,14 +25,64 @@ function CorsiBlockTest() {
     const history = useHistory()
 
     useEffect(()=>{
-        generateNewQuestion()
+
+        // Only run when there has been active changes to the answer
+        if (answer.length <= 0) return
+
+        // Check if the latest answer is correct
+        if (answer[answer.length-1] !== question[answer.length-1]) {
+
+            // The answer for this question has been completed
+            if (answer.length === question.length) {
+                setIsWaitingForAnswer(false)
+                setBlockMap(getInitialBlockMap)
+                generateNewQuestion()
+                setAnswer([])
+                setScore(score => score + 1)
+            }
+
+        } else {
+            setIsTestOver(true)
+        }
+
     }, [answer])
 
     useEffect(()=>{
         // Startup trigger
         if (question.length < getQuesLen()) generateNewQuestion()
-        // setIsWaitingForAnswer(false)
+        if (!isWaitingForAnswer) {
+
+            // Initiate a small delay to orientate the user before a new question is set
+            setTimeout(() => {
+                
+                // Show pattern
+                question.forEach((ques, index) => {
+                    setTimeout(() => {
+                        highlightBlockState(ques)
+                    }, index * TIME_INTERVAL)
+                })
+                setTimeout(() => {
+                    setBlockMap(getInitialBlockMap())
+                    setIsWaitingForAnswer(true)
+                }, (question.length+1) * TIME_INTERVAL)
+
+            }, STARTUP_DELAY)
+
+        }
     }, [question])
+
+    useEffect(()=>{
+        if (score === 5) {
+            setIsTestOver(true)
+        }
+    }, [score])
+
+    useEffect(()=>{
+        if (isTestOver) {
+            testProgress.addCorsiBlockResult(score)
+            history.push("/test-over")
+        }
+    }, [isTestOver])
 
     function getQuesLen() {
         return score + 4
@@ -68,14 +120,14 @@ function CorsiBlockTest() {
         // // } while (question.length < getQuesLen())
     }
 
-    function changeBlockState(index) {
+    function highlightBlockState(index) {
         // console.log(blockMap)
         // console.log(index)
         // console.log(blockMap[20])
         // const hl = !blockMap[index].highlighted
 
         let newMap = [...blockMap]
-        newMap[index] = !blockMap[index]
+        newMap[index] = true
         setBlockMap(newMap)
 
         // setBlockMap(prevBlockMap => {
@@ -87,12 +139,29 @@ function CorsiBlockTest() {
         // setBlockMap(prevMap => [...prevMap, [index]: false])
     }
 
+    function addNewAnswerNode(index) {
+        let newAns = [...answer]
+        newAns.push(index)
+        setAnswer(newAns)
+    }
+
     function handleBlockClick(index) {
-        changeBlockState(index)
+        if (isWaitingForAnswer) {
+            highlightBlockState(index)
+            addNewAnswerNode(index)
+        }
     }
 
     return (
         <div className="corsiblock">
+
+            {(process.env.REACT_APP_DEBUG_MODE === 'true')
+                && <>
+                    Debug data: {question.map((num, index) => <span key={index}>{num} </span>) };
+                    {answer.map((num, index) => <span key={index}>{num} </span>) }
+                
+                </>
+            }
 
             <div className="corsiblock__instruction">
                 <p className="corsiblock__instruction__content">

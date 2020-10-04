@@ -189,10 +189,24 @@ function NBackTest() {
                     <p>{`What is the ${ordinalStr} last digit?`}</p>
                 </div>
                 <div className="nback__qa__answers">
-                    {[...Array(10)].map((_, index) =>
-                        <button key={index} className="nback__qa__answers__answer" onClick={()=>{submitAnswer(index)}}>
-                            {index}
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((value, index) =>
+                        <button key={index}
+                            className="nback__qa__answers__answer"
+                            onClick={()=>{submitAnswer(value)}}
+                        >
+                            {value}
                         </button>
+
+                        // {(index === 10)
+                        //     ? <>
+                            
+                        //     </>
+                        //     : <>
+                            
+                        //     </>
+
+                        // }
+                        
                     )}
                 </div>
             </div>}
