@@ -98,7 +98,8 @@ function NBackTest() {
         // }
 
         if (answer === undefined) return
-        console.log(answer === currentData[currentData.length-question-1])
+        // console.log(answer === currentData[currentData.length-question-1])
+        // TODO factorise this grosteque line
         if (answer === currentData[currentData.length-question-1]) {
             setScore(score => score + 1)
             setAnswer(undefined)
@@ -188,10 +189,10 @@ function NBackTest() {
                 <div className="nback__qa__question">
                     <p>{`What is the ${ordinalStr} last digit?`}</p>
                 </div>
-                <div className="nback__qa__answers">
+                <div className="nback__qa__answers--nb">
                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((value, index) =>
                         <button key={index}
-                            className="nback__qa__answers__answer"
+                            className="nback__qa__answers--nb__answer"
                             onClick={()=>{submitAnswer(value)}}
                         >
                             {value}

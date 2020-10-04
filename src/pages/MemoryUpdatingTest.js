@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState, useRef } from 'react'
 import { useHistory } from 'react-router-dom';
 
 import { TestProgressContext } from '../contexts/TestProgress' 
-import { randIncl } from '../utilities/Random'
+import { randIncl, randWithBlacklist } from '../utilities/Random'
 
 const ALPHA = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 
@@ -18,6 +18,8 @@ function MemoryUpdatingTest() {
     const [score, setScore] = useState(0)
     
     const replData = useRef()
+    const isReadyForNewQuestion = useRef(true)
+    // let isReadyForNewQuestion = true
 
     const testProgress = useContext(TestProgressContext)
 
@@ -27,18 +29,28 @@ function MemoryUpdatingTest() {
         if (currentData.length <= 3) {
             addNewNumber()
         } else {
-            generateNewQuestion()
+            if (isReadyForNewQuestion.current) generateNewQuestion()
         }    
     }, [currentData])
 
+    // useEffect(() => {
+    //     if (currentData.length > 3) performReplacement()
+    // }, [question])
+
     useEffect(()=>{
         if (answer === undefined) return
-        console.log(answer === currentData[currentData.length-question-1])
-        if (answer === currentData[currentData.length-question-1]) {
-            setScore(score => score + 1)
-            setAnswer(undefined)
+        // console.log(answer === currentData[currentData.length-question-1])
+        if (answer === currentData.includes(question)) {
             setQuestion(undefined)
+            setAnswer(undefined)
             addNewNumber()
+            performReplacement()
+            setScore(score => score + 1)
+
+            // A slight delay to prevent performReplacement from triggering
+            // another question generation
+            // Has to be shorter than the next timeout to generateNewQuestion()
+            setTimeout(()=>{isReadyForNewQuestion.current = true}, 100)
         } else {
             setIsTestOver(true)
         }
@@ -52,7 +64,7 @@ function MemoryUpdatingTest() {
 
     useEffect(()=>{
         if (isTestOver) {
-            testProgress.addNbackResult(score)
+            testProgress.addMemoryUpdatingResult(score)
             history.push("/test-over")
         }
     }, [isTestOver])
@@ -61,58 +73,47 @@ function MemoryUpdatingTest() {
 
         setTimeout(() => {
             if (question === undefined) {
-                // TODO not the last, and not the two that has been replaced
-                setQuestion(1 + randIncl(3))
+                console.log("New question generated")
+                setQuestion(
+                    randWithBlacklist(
+                        ALPHA.length,
+                        [currentData[currentData.length-1]]
+                    )
+                )
             }
         }, 1500)
        
     }
 
     function performReplacement() {
-        let source = 0;
-        let replacement = 0;
-
-        // Replacement must happen and it cannot be at the last item
-        do {
-            source = randIncl(ALPHA.length)
-            replacement = randIncl(ALPHA.length)
-        } while (
-            source == replacement
-            || source == currentData[currentData.length-1]
-            || replacement == currentData[currentData.length-1]
-        )
+        let source = randWithBlacklist(ALPHA.length, [currentData[currentData.length-1]]);
+        let replacement = randWithBlacklist(ALPHA.length, [source, currentData[currentData.length-1]]);
 
         replData.current = [source, replacement]
+        isReadyForNewQuestion.current = false
 
         let newArr = [...currentData]
-        newArr.forEach((num) => {
-            if (num === source) num = replacement
+        newArr.forEach((num, i) => {
+            if (num === source) newArr[i] = replacement
         })
         setCurrentData(newArr)
+
+        console.log('Chars replaced')
     }
 
     function addNewNumber() {
             setTimeout(()=>{
-                setCurrentData([...currentData, randIncl(ALPHA.length)])
+                setCurrentData(
+                    [...currentData,
+                    randWithBlacklist(ALPHA.length, currentData)]
+                )
             }, 1200)
         // }
     }
 
-    function submitAnswer(value) {
-        console.log(value)
-        setAnswer(value)
-    }
-
-    // Rendering //
-
-    // Formatting ordinal numbers
-    let ordinalStr = ''
-    if (question === 1) {
-        ordinalStr = 'second'
-    } else if (question === 2) {
-        ordinalStr = 'third'
-    } else if (question === 3) {
-        ordinalStr = 'fourth'
+    function submitAnswer(_boo) {
+        // console.log(value)
+        setAnswer(_boo)
     }
     
     return (
@@ -121,7 +122,7 @@ function MemoryUpdatingTest() {
             {(process.env.REACT_APP_DEBUG_MODE === 'true')
                 && <>Debug data: {currentData.map((num, index) => <Letter key={index} value={num} isHidden={false}/>) }</>
             }
-            <p className="nback__attention">Pay attention to these numbers:</p>
+            <p className="nback__attention">Pay attention to these letters:</p>
             <div className="nback__current-data">
                 {currentData.map((num, index) => 
                     <Letter
@@ -135,10 +136,26 @@ function MemoryUpdatingTest() {
 
             {(question) && <div className="nback__qa">
                 <div className="nback__qa__question">
-                    <p>{`What is the ${ordinalStr} last digit?`}</p>
-                </div>
-                <div className="nback__qa__answers">
 
+                    {(replData.current) &&
+                        <p>{`All instances of the letter ${ALPHA[replData.current[0]]} have been replaced with ${ALPHA[replData.current[1]]}.`}</p>
+                    }
+
+                    <p>{`Is the letter ${ALPHA[question]} in this sequence?`}</p>
+                </div>
+                <div className="nback__qa__answers--mu">
+                    <button
+                        className="nback__qa__answers--mu__answer"
+                        onClick={()=>{submitAnswer(true)}}
+                    >
+                        Yes
+                    </button>
+                    <button
+                        className="nback__qa__answers--mu__answer"
+                        onClick={()=>{submitAnswer(false)}}
+                    >
+                        No
+                    </button>
                 </div>
             </div>}
         </div>
