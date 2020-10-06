@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState, useRef } from 'react'
 import { useHistory } from 'react-router-dom';
 
 import { TestProgressContext } from '../contexts/TestProgress' 
-import { randIncl, randWithBlacklist } from '../utilities/Random'
+import { randIncl, randWithBlacklist, randFromList } from '../utilities/Random'
 
 const ALPHA = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 
@@ -32,7 +32,7 @@ function MemoryUpdatingTest() {
     const history = useHistory()
 
     useEffect(()=>{
-        if (process.env.REACT_APP_DEBUG_MODE === 'true') console.log(currentData)
+        debugLog('Current sequence is: '+ currentData)
 
         if (currentData.length <= 3) {
             addNewNumber()
@@ -89,14 +89,20 @@ function MemoryUpdatingTest() {
                 )
                 // setQuestion(0)
     
-                console.log(`New question generated`)
+                // console.log(`New question generated`)
             }
         }, 1500)
        
     }
 
     function performReplacement() {
-        let source = randWithBlacklist(ALPHA.length, [currentData[currentData.length-1]]);
+        // let source = randWithBlacklist(ALPHA.length, [currentData[currentData.length-1]]);
+
+        // Randomly choose an item from the sequence, except for the last item
+        let potentialSources = [...currentData]
+        potentialSources.pop()
+        let source = randFromList(potentialSources);
+
         let replacement = randWithBlacklist(ALPHA.length, [source, currentData[currentData.length-1]]);
         // let source = randWithBlacklist(7, [currentData[currentData.length-1]]);
         // let replacement = randWithBlacklist(7, [source, currentData[currentData.length-1]]);
@@ -110,7 +116,7 @@ function MemoryUpdatingTest() {
         })
         setCurrentData(newArr)
 
-        console.log(`Chars replaced: ${ALPHA[source]} to ${ALPHA[replacement]} (${source} to ${replacement})`)
+        debugLog(`Chars replaced: ${ALPHA[source]} to ${ALPHA[replacement]} (${source} to ${replacement})`)
     }
 
     function addNewNumber() {
@@ -197,4 +203,10 @@ function Letter({value, isHidden, className}) {
             }
         </span>
     )
+}
+
+function debugLog(str) {
+    if (process.env.REACT_APP_DEBUG_MODE) {
+        console.log(str)
+    }
 }
