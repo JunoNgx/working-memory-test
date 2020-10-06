@@ -87,7 +87,7 @@ function Results() {
                     && (testProgress.corsiBlockResults.length === 5)
                 )
                 
-                && <p className="results__send-request">{STRINGS.SEND_DATA_NOTICE}</p>
+                && <p className="results__test-data__send-request">{STRINGS.SEND_DATA_NOTICE}</p>
             }
             
 

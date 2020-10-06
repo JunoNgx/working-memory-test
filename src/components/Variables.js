@@ -4,7 +4,7 @@ const STRINGS = {
     BROWSER_NOTICE: "Avoid using the back button on your device or refreshing the browser to prevent data loss.",
     VALIDITY_NOTICE: "For data accuracy and validity of the research, please refrain from using assistive method or device, such as recording and/or taking notes, during the course of the tests.",
 
-    SEND_DATA_NOTICE: "You have completed your tests. Please take a screenshot of this page and send to your point of contact in the research team. Your co-operation is much appreciated.",
+    SEND_DATA_NOTICE: "You have completed your tests. Please verify that your the information regarding your coffee drinking habit above is correct, take a screenshot of this page, and send this screenshot to a member of the research team. Your co-operation is very much appreciated by the research team.",
     RESET_WARNING: "WARNING: pressing the below button will erase all of your testing progress. This will not be recoverable.",
     RESET_CONFIRMATION: "Are you sure you want to reset your data? Please be certain that this is what you want as your data will not be recoverable afterwards.",
 
