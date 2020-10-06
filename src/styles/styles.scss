@@ -204,43 +204,46 @@ html {
 }
 
 .results {
-    &__title {
-        // font-size: 1.5rem;
-    }
-    &__container {
-        @include std-border();
-        // display: inline-block;
-        margin: 1rem 0;
-        padding: 0.5rem;
-        max-width: 280px;
-        &__test-name {
-            margin: 0;
-            // font-size: 1rem;
-            font-weight: bolder;
-        }
-        &__results {    
-            font-family: $font-mono;
+    &__coffee-data {
+        &__input {
+            @include std-border();
+            height: 2rem;
+            width: 3rem;
+            padding: 0rem 0.5rem;
+            background-color: $bac-color;
+            color: $pri-color;
             font-size: 1.5rem;
-            margin: 0;
+            font-family: $font-mono;
         }
-        // &__test-data {
-        //     display: flex;
-        //     justify-content: space-between;
-        //     align-items: center;
-            
-
-        //     &__result-count {
-        //         margin: 0;
-        //     }
-        // }
     }
-    &__send-request {
-        color: $acc-color;
-        margin-top: 3rem;
-    }
-    &__warning {
-        color: $war-color;
-        margin-top: 3rem;
+    &__test-data {
+        // background-color: red;
+        &__title {
+            // font-size: 1.5rem;
+        }
+        &__container {
+            @include std-border();
+            margin: 1rem 0;
+            padding: 0.5rem;
+            max-width: 280px;
+            &__test-name {
+                margin: 0;
+                font-weight: bolder;
+            }
+            &__results {    
+                font-family: $font-mono;
+                font-size: 1.5rem;
+                margin: 0;
+            }
+        }
+        &__send-request {
+            color: $acc-color;
+            margin-top: 3rem;
+        }
+        &__warning {
+            color: $war-color;
+            margin-top: 3rem;
+        }
     }
 }
 

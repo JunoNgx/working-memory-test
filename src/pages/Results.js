@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 // import { useHistory } from 'react-router-dom'
 import { TestProgressContext } from '../contexts/TestProgress'
 
@@ -8,7 +8,14 @@ import { STRINGS } from '../components/Variables'
 function Results() {
 
     const testProgress = useContext(TestProgressContext)
+    const [coffeeCupPerWeek, setCoffeeCupPerWeek] = useState(0)
     // const history = useHistory()
+
+    useEffect(() => {
+        if (localStorage.getItem('coffeeCupPerWeek')) {
+            setCoffeeCupPerWeek(localStorage.getItem('coffeeCupPerWeek'))
+        }
+    }, [])
 
     function resetData() {
         if (window.confirm(STRINGS.RESET_CONFIRMATION)) {
@@ -17,51 +24,60 @@ function Results() {
         }
     }
 
+    function handleCoffeeCupChange(event) {
+        setCoffeeCupPerWeek(event.target.value)
+        localStorage.setItem('coffeeCupPerWeek', event.target.value)
+    }
+
     return (
         <div className="results">
-            <p className="results__title">Test results so far:</p>
-            
-            <div className="results__container">
-                <p className="results__container__test-name">
-                    N-back ({testProgress.nbackResults.length}/5)
-                </p>
-                <p className="results__container__results">
-                    <ScoreRender dataArray={testProgress.nbackResults}/>
-                    {/* {testProgress.nbackResults.map((result, index) =>
-                        <span key={index}>{result} </span>
-                    )} */}
-                </p>
-                {/* <div className="results__container__test-data">
-                    <p className="results__container__test-data__results">
-                        {testProgress.nbackResults.map(result =>
-                            <span key>{result} </span>
-                        )}
+            <div className="results__coffee-data">
+                <label>
+                    <p className="results__coffee-data">
+                        How many cups of coffee do you consume on a weekly basis?<br/>(Enter 0 if you are not at all a coffee drinker)
                     </p>
-                    <p className="results__container__test-data__result-count">
-                        {testProgress.nbackResults.length}/5
+                    <input
+                        className="results__coffee-data__input"
+                        type="number"
+                        min="0"
+                        max="500"
+                        step="1"
+                        value={coffeeCupPerWeek}
+                        onChange={handleCoffeeCupChange}
+                    />
+                </label>
+
+            </div>
+
+            <div className="results__test-data">
+                <p className="results__test-data__title">Test results so far:</p>            
+                <div className="results__test-data__container">
+                    <p className="results__test-data__container__test-name">
+                        N-back ({testProgress.nbackResults.length}/5)
                     </p>
-                </div> */}
-            </div>
+                    <p className="results__test-data__container__results">
+                        <ScoreRender dataArray={testProgress.nbackResults}/>
+                    </p>
+                </div>
             
-            <div className="results__container">
-                <p className="results__container__test-name">
-                    Memory updating ({testProgress.memoryUpdatingResults.length}/5)
-                </p>
-                <p className="results__container__results">
-                    <ScoreRender dataArray={testProgress.memoryUpdatingResults}/>
-                    {/* {testProgress.memoryUpdatingResults.map((result, index) =>
-                        <span key={index}>{result} </span>
-                    )} */}
-                </p>
-            </div>
             
-            <div className="results__container">
-                <p className="results__container__test-name">
-                    Corsi-block tapping ({testProgress.corsiBlockResults.length}/5)
-                </p>
-                <p className="results__container__results">
-                    <ScoreRender dataArray={testProgress.corsiBlockResults}/>
-                </p>
+                <div className="results__test-data__container">
+                    <p className="results__test-data__container__test-name">
+                        Memory updating ({testProgress.memoryUpdatingResults.length}/5)
+                    </p>
+                    <p className="results__test-data__container__results">
+                        <ScoreRender dataArray={testProgress.memoryUpdatingResults}/>
+                    </p>
+                </div>
+                
+                <div className="results__test-data__container">
+                    <p className="results__test-data__container__test-name">
+                        Corsi-block tapping ({testProgress.corsiBlockResults.length}/5)
+                    </p>
+                    <p className="results__test-data__container__results">
+                        <ScoreRender dataArray={testProgress.corsiBlockResults}/>
+                    </p>
+                </div>
             </div>
             
             {
