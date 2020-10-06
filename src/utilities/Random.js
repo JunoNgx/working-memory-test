@@ -25,4 +25,9 @@ function randWithBlacklist(_upperLimit, _blacklist) {
     return num;
 }
 
-export { randIncl, randNUniqueNumsWithinRange, randWithBlacklist }
+// Randomly choosing one item from a specific array
+function randFromList(_list) {
+    return _list[Math.floor(Math.random() * _list.length)]
+}
+
+export { randIncl, randNUniqueNumsWithinRange, randWithBlacklist, randFromList }
