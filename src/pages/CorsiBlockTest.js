@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from 'react'
+import React, { useEffect, useContext, useState, useRef } from 'react'
 import { useHistory } from 'react-router-dom';
 
 import { randIncl, randNUniqueNumsWithinRange } from '../utilities/Random'
@@ -16,46 +16,31 @@ function CorsiBlockTest() {
     const [isTestOver, setIsTestOver] = useState(false)
     const [isWaitingForAnswer, setIsWaitingForAnswer] = useState(false)
     const [blockMap, setBlockMap] = useState(getInitialBlockMap())
+    const blockMapRef = useRef(blockMap)
+    blockMapRef.current = blockMap
+
     const [question, setQuestion] = useState([])
     const [answer, setAnswer] = useState([])
-    const [score, setScore] = useState(0)
+    // TODO change score to use useRef as this does not requrie a re-render
+    // const [score, setScore] = useState(0)
+    const score = useRef(0)
 
     const testProgress = useContext(TestProgressContext)
 
     const history = useHistory()
 
-    useEffect(()=>{
+    // useEffect(() => {
+    //     blockMapRef.current = blockMap
+    // }, [blockMap])
 
-        // Only run when there has been active changes to the answer
-        if (answer.length <= 0) return
-
-        // console.log(answer[answer.length-1])
-        // console.log(question[answer.length-1])
-
-        // Check if the latest answer is correct
-        if (answer[answer.length-1] === question[answer.length-1]) {
-
-            console.log('Correct block')
-
-            // The answer for this question has been completed
-            if (answer.length === question.length) {
-                setIsWaitingForAnswer(false)
-                setBlockMap(getInitialBlockMap)
-                generateNewQuestion()
-                setAnswer([])
-                setScore(score => score + 1)
-            }
-
-        } else {
-            console.log('Wrong block')
-            setIsTestOver(true)
-        }
-
-    }, [answer])
-
-    useEffect(()=>{
+    useEffect(() => {
         // Startup trigger, will run only once at first
-        if (question.length < getQuesLen()) generateNewQuestion()
+
+        // if (question.length < getQuesLen()) {
+        if (question.length === 0) {
+            debugLog('Triggering new question generation from question change')
+            generateNewQuestion()
+        }
 
         // Making sure that this is ran on a new and properly populated question set
         if (!isWaitingForAnswer && question.length > 0) {
@@ -74,28 +59,65 @@ function CorsiBlockTest() {
                 setTimeout(() => {
                     setIsWaitingForAnswer(true)
                     setBlockMap(getInitialBlockMap())
-                }, (question.length) * TIME_INTERVAL)
+                    // blockMapRef.current = blockMap
+                }, (question.length + 1) * TIME_INTERVAL)
 
             }, STARTUP_DELAY)
 
         }
     }, [question])
 
-    useEffect(()=>{
-        if (score === 5) {
+    useEffect(() => {
+
+        // Only run when there has been active changes to the answer
+        if (answer.length <= 0) return
+
+        // console.log(answer[answer.length-1])
+        // console.log(question[answer.length-1])
+
+        // Check if the latest answer is correct
+        if (answer[answer.length-1] === question[answer.length-1]) {
+
+            debugLog('Correct block')
+
+            // The answer for this question has been completed
+            if (answer.length === question.length) {
+
+                setIsWaitingForAnswer(false)
+                // setScore(score => score + 1)
+                score.current += 1
+
+                setTimeout(() => {
+                    setBlockMap(getInitialBlockMap())
+                    // blockMapRef.current = blockMap
+                    debugLog('Triggering new question generation from answer completion')
+                    generateNewQuestion()
+                    setAnswer([])
+                }, 1000)
+            }
+
+        } else {
+            debugLog('Wrong block')
             setIsTestOver(true)
         }
-    }, [score])
 
-    useEffect(()=>{
+    }, [answer])
+
+    useEffect(() => {
+        if (score.current === 5) {
+            setIsTestOver(true)
+        }
+    }, [score.current])
+
+    useEffect(() => {
         if (isTestOver) {
-            testProgress.addCorsiBlockResult(score)
+            testProgress.addCorsiBlockResult(score.current)
             history.push("/test-over")
         }
     }, [isTestOver])
 
     function getQuesLen() {
-        return score + 4
+        return score.current + 4
     }
 
     function getInitialBlockMap() {
@@ -107,7 +129,11 @@ function CorsiBlockTest() {
     }
 
     function generateNewQuestion() {
-        setQuestion(randNUniqueNumsWithinRange(getQuesLen(), 35))
+
+        const newArr = randNUniqueNumsWithinRange(getQuesLen(), 35)
+
+        debugLog('Generated new question: ' + newArr)
+        setQuestion(newArr)
 
 
         // console.log('question generating')
@@ -135,8 +161,12 @@ function CorsiBlockTest() {
         // console.log(index)
         // console.log(blockMap[20])
         // const hl = !blockMap[index].highlighted
+        if (process.env.REACT_APP_DEBUG_MODE) {
+            debugLog('Highlighting block: ' + index)
+        }
 
-        let newMap = [...blockMap]
+        // let newMap = [...blockMap]
+        let newMap = [...blockMapRef.current]
         newMap[index] = true
         setBlockMap(newMap)
 
@@ -234,3 +264,9 @@ function Block({index, isHighlighted, handleClick}) {
 }
 
 export default CorsiBlockTest
+
+function debugLog(str) {
+    if (process.env.REACT_APP_DEBUG_MODE) {
+        console.log(str)
+    }
+}
