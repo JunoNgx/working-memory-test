@@ -87,6 +87,7 @@ function MemoryUpdatingTest() {
                         [currentData[currentData.length-1]]
                     )
                 )
+                // setQuestion(0)
     
                 console.log(`New question generated`)
             }
@@ -152,7 +153,7 @@ function MemoryUpdatingTest() {
                 )}
             </div>
 
-            {(question) && <div className="nback__qa">
+            {(question !== undefined) && <div className="nback__qa">
                 <div className="nback__qa__question">
 
                     {(replData.current) &&
