@@ -15,6 +15,7 @@ function ExplanationPage({instructionStr, testPath}) {
                 <p>{instructionStr}</p>
                 {/* <p>{STRINGS.VALIDITY_NOTICE}</p>
                 <p>{STRINGS.BROWSER_NOTICE}</p> */}
+                <p>{STRINGS.TIME_LIMIT_NOTICE}</p>
             </div>
             <StartButton path={testPath}/>
             <BackButton label={"Back"}/>

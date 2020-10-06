@@ -11,7 +11,9 @@ const STRINGS = {
 
     NBACK_EXPLANATION: "In this test, you will be progressively shown numbers in an array. Earlier numbers will be hidden. Try to remember as much as you can, as you will then be asked for about one of the hidden numbers.",
     MEMORY_UPDATING_EXPLANATION: "In this test, you will be progressively shown letters in an array. Earlier letters will be hidden. Try to remember them as much as you can, as the question will ask about these letters later on.",
-    CORSI_BLOCK_EXPLANATION: "In this test, you will be shown a pattern of block being hightlighted. Pay attention and observe closely, as your task is to imitate this pattern precisely."
+    CORSI_BLOCK_EXPLANATION: "In this test, you will be shown a pattern of block being hightlighted. Pay attention and observe closely, as your task is to imitate this pattern precisely.",
+
+    TIME_LIMIT_NOTICE: "There is no time limit in completing this or any test. Feel free to perform at your own pace."
 }
 
 export { STRINGS }
