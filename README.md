@@ -1,68 +1,53 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Cognitive Performance: Working Memory Testing Tool
 
-## Available Scripts
 
-In the project directory, you can run:
+## Overview
 
-### `npm start`
+This application is mainly a testing tool for working memory, a major component of cognitive performance.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Background
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+In late 2020, during my study at Murdoch University, my team was tasked with a conducting a study on cognitive performance. With the Covid-19 pandemic on-going, social distancing measures being aggressively enforced by the laws, and lessons 100% online (the entire team had never met each other in person at this point), the data collection phase of this research was a challenge.
 
-### `npm test`
+The application was never a requirement of the output project, but being the only person with development skill in the team, I volunteered to deliver the obvious solution that would solve the data collection process in a very unique time of recent history.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Tech Stack
 
-### `npm run build`
+The app is powered by [Create React App](https://github.com/facebook/create-react-app) and [Syntactically Awesome Style Sheets](https://sass-lang.com/) with deployment via Netlify. 
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+[![Netlify Status](https://api.netlify.com/api/v1/badges/48377308-62dc-4be5-8194-41ee7eaa8b6e/deploy-status)](https://app.netlify.com/sites/workingmemorytest/deploys)
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+Participant's test progress and scores are stored in React's [Context](https://reactjs.org/docs/context.html) and `localStorage`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## The Tests
 
-### `npm run eject`
+The application contains three tests:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### N-back
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+A sequence of numbers is progressively shown to the participant, with only the last number visible. With each new number being added, the participant is asked to identified the a number in the range `[n-3, n-1]`, hence the name, *N-Back*.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+The test ends when the participant achieves the maximum score, or fail to correctly identify asked item.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Memory Updating
 
-## Learn More
+Similarly to the N-Back task, the participant is progressively shown a sequence of letter. From the 4th item onwards, before a new letter is added, one of the letter in the sequence (excluding the last item, which is also the only item visible to the participant) is replaced by another. The old and new letters are informed to the partipant. The participant then has to identify `true` or `false` whether one specific letter is present in the sequence (excluding the last and the only visible item).
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The test ends when the participant achieves the maximum score, or fail to correctly answer asked question.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Corsi Block Tapping Test
 
-### Code Splitting
+In a grid of size 5x7, the participant is imitate a previously shown sequence of block being highlighted. The length of this sequence increases over time.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+The test ends when the participant achieves the maximum score, or fail to correctly identify the block in the sequence.
 
-### Analyzing the Bundle Size
+## Environment Variable
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+In `.env`, change to `REACT_APP_DEBUG_MODE=true` or `REACT_APP_DEBUG_MODE=false` to run the app in debug mode, which would provide more UI information (which is standardly hidden from the participant) during the tests.
 
-### Making a Progressive Web App
+## Local Deployment
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+* Clone this repository locally `git clone https://github.com/JunoNgx/working-memory-test.git`
+* Move into the repository director `cd working-memory-test`
+* Update and install the packages `npm install`
+* Run the app in development mode at [http://localhost:3000](http://localhost:3000) `npm start`
