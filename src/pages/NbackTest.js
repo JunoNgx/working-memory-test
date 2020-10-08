@@ -71,7 +71,7 @@ function NBackTest() {
     // }, [question, answer])
 
     useEffect(()=>{
-        if (currentData.length <= 3) {
+        if (currentData.length <= 6) {
             addNewNumber()
         } else {
             generateNewQuestion()
@@ -127,7 +127,8 @@ function NBackTest() {
 
         setTimeout(() => {
             if (question === undefined) {
-                setQuestion(1 + randIncl(3))
+                // setQuestion(1 + randIncl(3))
+                setQuestion(1 + randIncl(6))
                 // console.log(isWaitingForAnswer)
                 // console.log('generated new question')
                 
@@ -158,13 +159,40 @@ function NBackTest() {
 
     // Formatting ordinal numbers
     let ordinalStr = ''
-    if (question === 1) {
-        ordinalStr = 'second'
-    } else if (question === 2) {
-        ordinalStr = 'third'
-    } else if (question === 3) {
-        ordinalStr = 'fourth'
+    switch (question) {
+        // because setQuestion(1 + rand(6))
+
+        case 1:
+            ordinalStr = 'second'
+            break;
+
+        case 2:
+            ordinalStr = 'third'
+            break;
+
+        case 3:
+            ordinalStr = 'fourth'
+            break;
+
+        case 4:
+            ordinalStr = 'fifth'
+            break;
+
+        case 5:
+            ordinalStr = 'sixth'
+            break;
+
+        case 6:
+            ordinalStr = 'seventh'
+            break;
     }
+    // if (question === 1) {
+    //     ordinalStr = 'second'
+    // } else if (question === 2) {
+    //     ordinalStr = 'third'
+    // } else if (question === 3) {
+    //     ordinalStr = 'fourth'
+    // }
     
     return (
         <div className="nback">
