@@ -34,7 +34,7 @@ function MemoryUpdatingTest() {
     useEffect(()=>{
         debugLog('Current sequence is: '+ currentData)
 
-        if (currentData.length <= 3) {
+        if (currentData.length <= 6) {
             addNewNumber()
         } else {
             if (isReadyForNewQuestion.current) generateNewQuestion()
