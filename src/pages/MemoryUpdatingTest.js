@@ -80,12 +80,13 @@ function MemoryUpdatingTest() {
     function generateNewQuestion() {
 
         setTimeout(() => {
+
+            let blacklist = [...currentDataRef.current]
+            if (replData.current) blacklist.push(...replData.current)
+            
             if (question === undefined) {
                 setQuestion(
-                    randWithBlacklist(
-                        ALPHA.length,
-                        [currentData[currentData.length-1]]
-                    )
+                    randWithBlacklist(ALPHA.length, blacklist)
                 )
                 // setQuestion(0)
     
