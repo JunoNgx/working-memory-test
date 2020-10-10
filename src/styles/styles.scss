@@ -27,6 +27,10 @@ $font-mono: Roboto Mono, monospace;
         color: $hover-text-col;
         background-color: $col;
     }
+    &:active {
+        color: $hover-text-col;
+        background-color: $col;
+    }
 }
 
 @mixin nav-button() {
