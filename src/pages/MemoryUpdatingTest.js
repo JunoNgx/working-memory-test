@@ -25,7 +25,6 @@ function MemoryUpdatingTest() {
     
     const replData = useRef()
     const isReadyForNewQuestion = useRef(true)
-    // let isReadyForNewQuestion = true
 
     const testProgress = useContext(TestProgressContext)
 
@@ -41,13 +40,8 @@ function MemoryUpdatingTest() {
         }    
     }, [currentData])
 
-    // useEffect(() => {
-    //     if (currentData.length > 3) performReplacement()
-    // }, [question])
-
     useEffect(()=>{
         if (answer === undefined) return
-        // console.log(answer === currentData[currentData.length-question-1])
         if (answer === currentData.includes(question)) {
             setQuestion(undefined)
             setAnswer(undefined)
@@ -88,25 +82,18 @@ function MemoryUpdatingTest() {
                 setQuestion(
                     randWithBlacklist(ALPHA.length, blacklist)
                 )
-                // setQuestion(0)
-    
-                // console.log(`New question generated`)
             }
         }, 1500)
        
     }
 
     function performReplacement() {
-        // let source = randWithBlacklist(ALPHA.length, [currentData[currentData.length-1]]);
 
         // Randomly choose an item from the sequence, except for the last item
         let potentialSources = [...currentData]
         potentialSources.pop()
         let source = randFromList(potentialSources);
-
         let replacement = randWithBlacklist(ALPHA.length, [source, currentData[currentData.length-1]]);
-        // let source = randWithBlacklist(7, [currentData[currentData.length-1]]);
-        // let replacement = randWithBlacklist(7, [source, currentData[currentData.length-1]]);
 
         replData.current = [source, replacement]
         isReadyForNewQuestion.current = false
@@ -134,11 +121,9 @@ function MemoryUpdatingTest() {
                 )
 
             }, 1200)
-        // }
     }
 
     function submitAnswer(_boo) {
-        // console.log(value)
         setAnswer(_boo)
     }
     
