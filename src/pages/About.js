@@ -1,11 +1,8 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
 import BackButton from '../components/BackButton'
 import { STRINGS } from '../components/Variables'
 
 function About() {
-
-    const history = useHistory()
 
     return (
         <div className="about">

@@ -1,12 +1,9 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
 import BackButton from '../components/BackButton'
 
 import { STRINGS } from '../components/Variables'
 
 function Agreement() {
-    const history = useHistory();
-
     return (
         <div className="agreement">
             <p>{STRINGS.DATA_COLLECTION_NOTICE}</p>

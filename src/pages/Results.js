@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from 'react'
-// import { useHistory } from 'react-router-dom'
 import { TestProgressContext } from '../contexts/TestProgress'
 
 import ToMenuButton from '../components/BackButton'
@@ -9,7 +8,6 @@ function Results() {
 
     const testProgress = useContext(TestProgressContext)
     const [coffeeCupPerWeek, setCoffeeCupPerWeek] = useState(0)
-    // const history = useHistory()
 
     useEffect(() => {
         if (localStorage.getItem('coffeeCupPerWeek')) {
