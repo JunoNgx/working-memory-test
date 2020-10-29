@@ -21,22 +21,15 @@ function CorsiBlockTest() {
 
     const [question, setQuestion] = useState([])
     const [answer, setAnswer] = useState([])
-    // TODO change score to use useRef as this does not requrie a re-render
-    // const [score, setScore] = useState(0)
     const score = useRef(0)
 
     const testProgress = useContext(TestProgressContext)
 
     const history = useHistory()
 
-    // useEffect(() => {
-    //     blockMapRef.current = blockMap
-    // }, [blockMap])
-
     useEffect(() => {
         // Startup trigger, will run only once at first
 
-        // if (question.length < getQuesLen()) {
         if (question.length === 0) {
             debugLog('Triggering new question generation from question change')
             generateNewQuestion()
@@ -59,7 +52,6 @@ function CorsiBlockTest() {
                 setTimeout(() => {
                     setIsWaitingForAnswer(true)
                     setBlockMap(getInitialBlockMap())
-                    // blockMapRef.current = blockMap
                 }, (question.length + 1) * TIME_INTERVAL)
 
             }, STARTUP_DELAY)
@@ -72,9 +64,6 @@ function CorsiBlockTest() {
         // Only run when there has been active changes to the answer
         if (answer.length <= 0) return
 
-        // console.log(answer[answer.length-1])
-        // console.log(question[answer.length-1])
-
         // Check if the latest answer is correct
         if (answer[answer.length-1] === question[answer.length-1]) {
 
@@ -84,12 +73,10 @@ function CorsiBlockTest() {
             if (answer.length === question.length) {
 
                 setIsWaitingForAnswer(false)
-                // setScore(score => score + 1)
                 score.current += 1
 
                 setTimeout(() => {
                     setBlockMap(getInitialBlockMap())
-                    // blockMapRef.current = blockMap
                     debugLog('Triggering new question generation from answer completion')
                     generateNewQuestion()
                     setAnswer([])
@@ -134,49 +121,16 @@ function CorsiBlockTest() {
 
         debugLog('Generated new question: ' + newArr)
         setQuestion(newArr)
-
-
-        // console.log('question generating')
-        // console.log(question.length)
-        // console.log(getQuesLen())
-        
-        // // do {
-        // //     // let num = randIncl(blockMap.length)
-        // //     // console.log(num)
-        // //     // let newArr = [...question]
-        // //     //     newArr.push(num)
-        // //     //     setQuestion(newArr)
-
-        // //     // if (!question.includes(num)) {
-        // //     //     console.log('not indlucded')
-        // //     //     let newArr = [...question]
-        // //     //     newArr.push(num)
-        // //     //     setQuestion(newArr)
-        // //     // }
-        // // } while (question.length < getQuesLen())
     }
 
     function highlightBlockState(index) {
-        // console.log(blockMap)
-        // console.log(index)
-        // console.log(blockMap[20])
-        // const hl = !blockMap[index].highlighted
         if (process.env.REACT_APP_DEBUG_MODE) {
             debugLog('Highlighting block: ' + index)
         }
 
-        // let newMap = [...blockMap]
         let newMap = [...blockMapRef.current]
         newMap[index] = true
         setBlockMap(newMap)
-
-        // setBlockMap(prevBlockMap => {
-        //     prevBlockMap[index] = !prevBlockMap[index]
-        //     // console.log(prevBlockMap)
-        //     return prevBlockMap
-        // })
-
-        // setBlockMap(prevMap => [...prevMap, [index]: false])
     }
 
     function addNewAnswerNode(index) {
@@ -217,29 +171,8 @@ function CorsiBlockTest() {
                 {blockMap.map((isHighlighted, index) => <div
                     key={index}
                     className="corsiblock__blocks__container"
-                    // id={"block"+{index}}
                 >
                     <Block index={index} isHighlighted={isHighlighted} handleClick={handleBlockClick}/>
-
-
-                    {/* {(isHighlighted === true)
-                        ? <div
-                            className="
-                                corsiblock__blocks__container__block
-                                corsiblock__blocks__container__block--clickable
-                                corsiblock__blocks__container__block--highlighted
-                            "
-                            onClick={()=>{changeBlockState(index)}}
-                        ></div>
-                        : <div
-                            className="
-                                corsiblock__blocks__container__block
-                                corsiblock__blocks__container__block--clickable
-                            "
-                            onClick={()=>{changeBlockState(index)}}
-                        ></div>
-                    
-                    } */}
                     
                 </div>)}
             </div>
